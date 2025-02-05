@@ -14,28 +14,13 @@ if (isset($_SESSION['user_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Vacation Portal</title>
+    <title>Log-in/Register - Vacation Portal</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="login-container">
-        <!-- Display Database Connection Message -->
-        <?php 
-        if (isset($_SESSION['db_message'])) 
-        { 
-            echo "<p class='db-message'>" . htmlspecialchars($_SESSION['db_message']) . "</p>"; 
-            unset($_SESSION['db_message']); // Remove message after displaying
-        }
-        ?>
 
         <h2>Log-In</h2>
-
-        <?php 
-        if (isset($_GET['error'])) 
-        { 
-            echo "<p class='error'>" . htmlspecialchars($_GET['error']) . "</p>"; 
-        } 
-        ?>
         
         <form action="login.php" method="POST">
             <label>Email:</label>
@@ -50,9 +35,25 @@ if (isset($_SESSION['user_id'])) {
 
     <br>
 
+    <div class="login-messages-section">
+        <?php
+        // Display login-related messages
+        if (isset($_SESSION['login_messages']) && !empty($_SESSION['login_messages'])) {
+            foreach ($_SESSION['login_messages'] as $message) {
+                $messageClass = $message['type'] === 'error' ? 'error' : 'success';
+                echo "<p class='$messageClass'>" . htmlspecialchars($message['text']) . "</p>";
+            }
+            unset($_SESSION['login_messages']); // Clear messages after display
+        }
+        ?>
+    </div>
+
+    <br>
+
     <div class =register-container>
-    <h2>Register</h2>
-        <!-- HTML Form for registration -->
+
+        <h2>Register</h2>
+
         <form action="register.php" method="POST">
             <label>Full Name:</label>
             <input type="fullname" name="fullname" required>
@@ -78,6 +79,21 @@ if (isset($_SESSION['user_id'])) {
 
             <button type="submit">Register</button>
         </form>
+    </div>
+
+    <br>
+
+    <div class="register-messages-section">
+        <?php
+        // Display register-related messages
+        if (isset($_SESSION['register_messages']) && !empty($_SESSION['register_messages'])) {
+            foreach ($_SESSION['register_messages'] as $message) {
+                $messageClass = $message['type'] === 'error' ? 'error' : 'success';
+                echo "<p class='$messageClass'>" . htmlspecialchars($message['text']) . "</p>";
+            }
+            unset($_SESSION['register_messages']); // Clear messages after display
+        }
+        ?>
     </div>
 </body>
 </html>

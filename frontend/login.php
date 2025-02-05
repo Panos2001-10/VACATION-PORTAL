@@ -24,21 +24,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Store user data in session to track login status
             $_SESSION['user_id'] = $id;
             $_SESSION['user_role'] = $role;
-            
-            // Redirect to the dashboard
-            header("Location: dashboard.php");
+            $_SESSION['login_messages'][] = ["type" => "success", "text" => "Login successful!"];
+            header("Location: index.php");
             exit();
-        } else {
-            // If the password is incorrect
-            $_SESSION['error_message'] = "Incorrect password.";
-            header("Location: index.php?error=Incorrect password.");
-            exit();
+        } 
+        else 
+        {
+            $_SESSION['login_messages'][] = ["type" => "error", "text" => "Incorrect password."];
         }
-    } else {
-        // If the user doesn't exist
-        $_SESSION['error_message'] = "No user found with that email.";
-        header("Location: index.php?error=No user found with that email.");
-        exit();
+    } 
+    else 
+    {
+        $_SESSION['login_messages'][] = ["type" => "error", "text" => "No account found with that email."];
     }
+
+    // Redirect back to the index page to display the message
+    header("Location: index.php");
+    exit();
 }
 ?>
