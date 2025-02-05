@@ -28,7 +28,7 @@ if (isset($_SESSION['user_id'])) {
         }
         ?>
 
-        <h2>Login</h2>
+        <h2>Log-In</h2>
 
         <?php 
         if (isset($_GET['error'])) 
@@ -45,6 +45,38 @@ if (isset($_SESSION['user_id'])) {
             <input type="password" name="password" required>
 
             <button type="submit">Log-in</button>
+        </form>
+    </div>
+
+    <br>
+
+    <div class =register-container>
+    <h2>Register</h2>
+        <!-- HTML Form for registration -->
+        <form action="register.php" method="POST">
+            <label>Full Name:</label>
+            <input type="fullname" name="fullname" required>
+
+            <label>Email:</label>
+            <input type="email" name="email" required>
+            
+            <label>Password:</label>
+            <input type="password" name="password" required>
+            
+            <label>Confirm password:</label>
+            <input type="password" name="confirmPassword" required>
+            
+            <br>
+            <label>Role:</label>
+            <div>
+                <input type="radio" id="manager" name="role" value="manager" required>
+                <label for="manager">Manager</label>
+
+                <input type="radio" id="employee" name="role" value="employee" required>
+                <label for="employee">Employee</label>
+            </div>
+
+            <button type="submit">Register</button>
         </form>
     </div>
 </body>
