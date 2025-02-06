@@ -1,6 +1,7 @@
 <?php
-session_start(); // Start session to store user info
-include __DIR__ . '/../src/config.php'; // Include the database connection
+session_start();
+include __DIR__ . '/../src/config.php';
+include __DIR__ . '/messageHandler.php';
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -26,18 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['user_role'] = $role;
             header("Location: index.php");
             exit();
-        } 
-        else 
-        {
-            $_SESSION['login_messages'][] = ["type" => "error", "text" => "Incorrect password."];
+        } else {
+            addMessage("error", "Incorrect password.");
         }
-    } 
-    else 
-    {
-        $_SESSION['login_messages'][] = ["type" => "error", "text" => "No account found with that email."];
+    } else {
+        addMessage("error", "No account found with that email address.");
     }
-
-    // Redirect back to the index page to display the message
     header("Location: index.php");
     exit();
 }

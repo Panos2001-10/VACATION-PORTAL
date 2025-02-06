@@ -1,11 +1,17 @@
 <?php
 session_start();
-include __DIR__ . '/../src/config.php'; // Include the database connection
+include __DIR__ . '/../src/config.php';
+include __DIR__ . '/messageHandler.php';
 
 // Check if the user is already logged in
-if (isset($_SESSION['user_id'])) {
-    header("Location: manageUsers.php");
-    exit();
+if (isset($_SESSION["user_id"])) {
+    if ($_SESSION["user_role"] == "manager") {
+        header("Location: manageUsersForm.php");
+        exit();
+    } elseif ($_SESSION["user_role"] == "employee") {
+        header("Location: dashboard.php");
+        exit();
+    }
 }
 ?>
 
@@ -19,9 +25,7 @@ if (isset($_SESSION['user_id'])) {
 </head>
 <body>
     <div class="login-container">
-
         <h2>Log-In</h2>
-        
         <form action="login.php" method="POST">
             <label>Email:</label>
             <input type="email" name="email" required>
@@ -34,18 +38,8 @@ if (isset($_SESSION['user_id'])) {
     </div>
 
     <br>
-
-    <div class="login-messages-section">
-        <?php
-        // Display login-related messages
-        if (isset($_SESSION['login_messages']) && !empty($_SESSION['login_messages'])) {
-            foreach ($_SESSION['login_messages'] as $message) {
-                $messageClass = $message['type'] === 'error' ? 'error' : 'success';
-                echo "<p class='$messageClass'>" . htmlspecialchars($message['text']) . "</p>";
-            }
-            unset($_SESSION['login_messages']); // Clear messages after display
-        }
-        ?>
+    <div class="messages">
+        <?php displayMessages(); ?>
     </div>
 </body>
 </html>

@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once __DIR__ . '/../src/config.php';
+include __DIR__ . '/../src/config.php';
+include __DIR__ . '/messageHandler.php';
 
 // Check if the user is logged in and is a manager
 if (!isset($_SESSION["user_id"]) || $_SESSION["user_role"] !== "manager") {
@@ -19,7 +20,7 @@ $result = $stmt->get_result();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Employees</title>
+    <title>Manage Users</title>
 </head>
 <body>
     <h2>List of Employees</h2>
@@ -35,13 +36,18 @@ $result = $stmt->get_result();
             <td><?php echo htmlspecialchars($row['name']); ?></td>
             <td><?php echo htmlspecialchars($row['email']); ?></td>
             <td>
-                <a href="edit_user.php?id=<?php echo $row['id']; ?>">Edit</a> |
-                <a href="delete_user.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure?');">Delete</a>
+                <a href="editUserForm.php?id=<?php echo $row['id']; ?>">Edit</a> |
+                <a href="deleteUser.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure?');">Delete</a>
             </td>
         </tr>
         <?php endwhile; ?>
     </table>
     
+    <br>
+    <div class="messages">
+        <?php displayMessages(); ?>
+    </div>
+
     <div class = logout>
         <p>You are logged in as: <?php echo $_SESSION["user_role"]; ?></p>
         <a href="logout.php">Logout</a>
