@@ -1,6 +1,6 @@
 <?php
 session_start(); // Start session to store user info
-include __DIR__ . '/../backend/config.php';
+include __DIR__ . '/../src/config.php'; // Include the database connection
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Prevent SQL Injection: Use prepared statements
     $stmt = $connection->prepare("SELECT id, password, role FROM users WHERE email = ?");
-    $stmt->bind_param("s", $email); // "s" means string
+    $stmt->bind_param("s", $email);
     $stmt->execute();
     $stmt->store_result();
 
@@ -24,7 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Store user data in session to track login status
             $_SESSION['user_id'] = $id;
             $_SESSION['user_role'] = $role;
-            $_SESSION['login_messages'][] = ["type" => "success", "text" => "Login successful!"];
             header("Location: index.php");
             exit();
         } 

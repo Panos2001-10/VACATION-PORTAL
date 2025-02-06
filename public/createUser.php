@@ -1,20 +1,13 @@
 <?php
 session_start(); // Start session to store user info
-include __DIR__ . '/../backend/config.php'; // Include the database connection
+include __DIR__ . '/../src/config.php'; // Include the database connection
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get user input from the registration form
     $fullname = $_POST['fullname'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $confirmPassword = $_POST['confirmPassword'];
     $role = $_POST['role']; // Get the selected role (Manager or Employee)
-
-    if ($password !== $confirmPassword) {
-        $_SESSION['register_messages'][] = ["type" => "error", "text" => "Passwords do not match."];
-        header("Location: index.php"); // Redirect back to the index page
-        exit();
-    }
 
     // Hash the password before saving it to the database
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
@@ -25,9 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     // Check if the query executed successfully
     if ($stmt->execute()) {
-        $_SESSION['register_messages'][] = ["type" => "success", "text" => "Registration successful! Please log in."];
+        $_SESSION['register_messages'][] = ["type" => "success", "text" => "New user created successfully!"];
     } else {
-        $_SESSION['register_messages'][] = ["type" => "error", "text" => "Error occurred during registration. Please try again."];
+        $_SESSION['register_messages'][] = ["type" => "error", "text" => "Error occurred during user creation. Please try again."];
     }
 
     // Redirect to login page after successful registration
