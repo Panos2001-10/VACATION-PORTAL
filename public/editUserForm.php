@@ -42,17 +42,20 @@ if (!$employee) {
     <form action="editUser.php" method="POST">
         <input type="hidden" name="id" value="<?php echo $employee['id']; ?>">
         <label for="fullname">Full Name:</label>
-        <input type="text" name="fullname" value="<?php echo htmlspecialchars($employee['name']); ?>" required><br>
-        
+        <input type="text" name="fullname" value="<?php echo htmlspecialchars($employee['name']); ?>" required>
+
+        <br>
         <label for="email">Email:</label>
-        <input type="email" name="email" value="<?php echo htmlspecialchars($employee['email']); ?>" required><br>
+        <input type="email" name="email" value="<?php echo htmlspecialchars($employee['email']); ?>" required>
         
-        <label for="employee_code">Employee Code (7 digits):</label>
-        <input type="text" name="employee_code" value="<?php echo htmlspecialchars($employee['employee_code']); ?>" pattern="\d{7}" required><br>
+        <br>
+        <input type="hidden" name="employee_code" value="<?php echo htmlspecialchars($employee['employee_code']); ?>" pattern="\d{7}" required>
         
+        <br>
         <label for="password">New Password (leave blank to keep current password):</label>
-        <input type="password" name="password"><br>
+        <input type="password" name="password">
         
+        <br>
         <button type="submit">Save Changes</button>
     </form>
     <br>

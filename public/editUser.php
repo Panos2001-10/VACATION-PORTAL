@@ -13,15 +13,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = $_POST["id"];
     $fullname = trim($_POST["fullname"]);
     $email = trim($_POST["email"]);
-    $employee_code = trim($_POST["employee_code"]);
+    $employee_code = $_POST["employee_code"];
     $password = trim($_POST["password"]);
-
-    // Validate employee code (7 digits)
-    if (!preg_match("/^[0-9]{7}$/", $employee_code)) {
-        addMessage("error", "Invalid Employee Code. It must be a 7-digit number.");
-        header("Location: previousPage.php");
-        exit();
-    }
 
     // Prepare the update query
     if (!empty($password)) {
