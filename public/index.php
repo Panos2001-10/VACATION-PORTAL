@@ -5,11 +5,12 @@ include __DIR__ . '/../middleware/messageHandler.php';
 
 // Check if the user is already logged in
 if (isset($_SESSION["user_id"])) {
+    $userId = $_SESSION["user_id"]; // Get the logged-in user ID
     if ($_SESSION["user_role"] == "manager") {
-        header("Location: manageUsersForm.php");
+        header("Location: manageUsersForm.php?user_id=$userId");
         exit();
     } elseif ($_SESSION["user_role"] == "employee") {
-        header("Location: dashboard.php");
+        header("Location: requestsForm.php?user_id=$userId");
         exit();
     }
 }

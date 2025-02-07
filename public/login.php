@@ -24,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (password_verify($password, $hashed_password)) {
             // Store user data in session to track login status
             $_SESSION['user_id'] = $id;
+            //setUserId($id);
             $_SESSION['user_role'] = $role;
             header("Location: index.php");
             exit();
