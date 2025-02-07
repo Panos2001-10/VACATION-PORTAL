@@ -1,13 +1,7 @@
 <?php
-session_start();
 include __DIR__ . '/../src/config.php';
-include __DIR__ . '/messageHandler.php';
-
-// Check if the user is logged in and is a manager
-if (!isset($_SESSION["user_id"]) || $_SESSION["user_role"] !== "manager") {
-    header("Location: index.php");
-    exit();
-}
+include __DIR__ . '/../middleware/messageHandler.php';
+include __DIR__ . '/../middleware/authCheck.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = $_POST["id"];

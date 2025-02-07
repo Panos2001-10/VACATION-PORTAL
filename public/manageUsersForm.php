@@ -1,13 +1,7 @@
 <?php
-session_start();
 include __DIR__ . '/../src/config.php';
-include __DIR__ . '/messageHandler.php';
-
-// Check if the user is logged in and is a manager
-if (!isset($_SESSION["user_id"]) || $_SESSION["user_role"] !== "manager") {
-    header("Location: index.php");
-    exit();
-}
+include __DIR__ . '/../middleware/messageHandler.php';
+include __DIR__ . '/../middleware/authCheck.php';
 
 // Fetch all employees from the database
 $stmt = $connection->prepare("SELECT id, name, email FROM users WHERE role = 'employee'");
@@ -49,7 +43,7 @@ $result = $stmt->get_result();
     </div>
 
     <div class = logout>
-        <p>You are logged in as: <?php echo $_SESSION["user_role"]; ?></p>
+        <p>You are logged in as: Manager </p>
         <a href="logout.php">Logout</a>
     </div>
 </body>

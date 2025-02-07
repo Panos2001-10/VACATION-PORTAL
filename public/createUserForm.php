@@ -1,13 +1,7 @@
 <?php
-session_start();
 include __DIR__ . '/../src/config.php';
-include __DIR__ . '/messageHandler.php';
-
-// Check if the user is already logged in
-if (!isset($_SESSION["user_id"])) {
-    header("Location: index.php");
-    exit();
-}
+include __DIR__ . '/../middleware/messageHandler.php';
+include __DIR__ . '/../middleware/authCheck.php';
 ?>
 
 <!DOCTYPE html>
@@ -55,7 +49,7 @@ if (!isset($_SESSION["user_id"])) {
     </div>
 
     <div class = logout>
-        <p>You are logged in as: <?php echo $_SESSION["user_role"]; ?></p>
+        <p>You are logged in as: Manager </p>
         <a href="logout.php">Logout</a>
     </div>
 </body>

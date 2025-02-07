@@ -1,13 +1,8 @@
 <?php
-session_start();
 include __DIR__ . '/../src/config.php';
-include __DIR__ . '/messageHandler.php';
+include __DIR__ . '/../middleware/messageHandler.php';
+include __DIR__ . '/../middleware/authCheck.php';
 
-// Ensure the user is a logged-in manager
-if (!isset($_SESSION["user_id"]) || $_SESSION["user_role"] !== "manager") {
-    header("Location: index.php");
-    exit();
-}
 
 // Validate and sanitize the user ID
 if (!isset($_GET['id']) || !ctype_digit($_GET['id'])) {
