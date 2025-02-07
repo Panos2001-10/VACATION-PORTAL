@@ -1,6 +1,6 @@
 <?php
-include __DIR__ . '/src/config.php';
-include __DIR__ . '/middleware/messageHandler.php';
+include __DIR__ . '/../src/config.php';
+include __DIR__ . '/../middleware/messageHandler.php';
 include __DIR__ . '/../middleware/authCheck.php';
 
 // Check if an employee ID is provided

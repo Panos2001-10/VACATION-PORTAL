@@ -24,10 +24,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (password_verify($password, $hashed_password)) {
             // Store user data in session to track login status
             $_SESSION['user_id'] = $id;
-            //setUserId($id);
             $_SESSION['user_role'] = $role;
-            header("Location: index.php");
-            exit();
+            // Redirect to the correct page based on role
+            if ($role == 'manager') {
+                header("Location: manageUsersForm.php");
+                exit();
+            } elseif ($role == 'employee') {
+                header("Location: vacationRequestsForm.php");
+                exit();
+            }
         } else {
             addMessage("error", "Incorrect password.");
         }
