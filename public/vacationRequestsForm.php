@@ -4,12 +4,13 @@ include __DIR__ . '/../middleware/messageHandler.php';
 include __DIR__ . '/../middleware/authCheck.php';
 
 // Fetch vacation requests for the logged-in user
-$stmt = $connection->prepare("SELECT id, employee_id, start_date, end_date, reason, status FROM vacation_requests WHERE employee_id = ?");
-$stmt->bind_param("i", $_SESSION['user_id']);
+$stmt = $connection->prepare("SELECT employee_code, start_date, end_date, reason, status FROM requests WHERE employee_code = ?");
+$stmt->bind_param("i", $_SESSION['user_employee_code']);
 $stmt->execute();
 $result = $stmt->get_result();
 
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user_employee_code'])) {
+    addMessage('error', 'Something went wrong. Please try again!');
     header('Location: index.php'); // Redirect to login page
     exit();
 }

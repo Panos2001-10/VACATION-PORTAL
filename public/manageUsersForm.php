@@ -4,7 +4,7 @@ include __DIR__ . '/../middleware/messageHandler.php';
 include __DIR__ . '/../middleware/authCheck.php';
 
 // Fetch all employees from the database
-$stmt = $connection->prepare("SELECT id, name, email FROM users WHERE role = 'employee'");
+$stmt = $connection->prepare("SELECT employee_code, full_name, email FROM users WHERE role = 'employee'");
 $stmt->execute();
 $result = $stmt->get_result();
 ?>
@@ -27,11 +27,11 @@ $result = $stmt->get_result();
         </tr>
         <?php while ($row = $result->fetch_assoc()): ?>
         <tr>
-            <td><?php echo htmlspecialchars($row['name']); ?></td>
+            <td><?php echo htmlspecialchars($row['full_name']); ?></td>
             <td><?php echo htmlspecialchars($row['email']); ?></td>
             <td>
-                <a href="editUserForm.php?id=<?php echo $row['id']; ?>">Edit</a> |
-                <a href="deleteUser.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure?');">Delete</a>
+                <a href="editUserForm.php?id=<?php echo $row['employee_code']; ?>">Edit</a> |
+                <a href="deleteUser.php?id=<?php echo $row['employee_code']; ?>" onclick="return confirm('Are you sure?');">Delete</a>
             </td>
         </tr>
         <?php endwhile; ?>
