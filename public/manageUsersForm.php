@@ -42,8 +42,9 @@ $result = $stmt->get_result();
         <?php displayMessages(); ?>
     </div>
 
-    <div class = logout>
-        <p>You are logged in as: Manager </p>
+    <br>
+    <div class="logout">
+        <p>You are logged in as: <?php echo $_SESSION['user_full_name'], ", ", $_SESSION['user_role']?></p>
         <a href="logout.php">Logout</a>
     </div>
 </body>

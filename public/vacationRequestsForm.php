@@ -25,6 +25,11 @@ if (!isset($_SESSION['user_employee_code'])) {
 </head>
 <body>
     <h2>List of Vacation Requests</h2>
+
+    <a href="requestSubmitionForm.php">Submit new request</a>
+    <br>
+
+    <br>
     <table border="1">
         <tr>
             <th>Date Submitted</th>
@@ -47,7 +52,7 @@ if (!isset($_SESSION['user_employee_code'])) {
                 $startDate = new DateTime($row['start_date']);
                 $endDate = new DateTime($row['end_date']);
                 $interval = $startDate->diff($endDate);
-                echo $interval->days . " days"; 
+                echo ($interval->days + 1) . " days";
                 ?>
             </td>
 
@@ -64,9 +69,10 @@ if (!isset($_SESSION['user_employee_code'])) {
     <div class="messages">
         <?php displayMessages(); ?>
     </div>
-
+    
+    <br>
     <div class="logout">
-        <p>You are logged in as: Employee</p>
+        <p>You are logged in as: <?php echo $_SESSION['user_full_name'], ", ", $_SESSION['user_role']?></p>
         <a href="logout.php">Logout</a>
     </div>
 </body>
