@@ -26,7 +26,7 @@ include __DIR__ . '/../middleware/messageHandler.php';
         
         <button type="submit">Save</button>
     </form>
-
+    
     <div class="messages">
         <?php displayMessages(); ?>
     </div>

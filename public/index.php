@@ -13,6 +13,7 @@ include __DIR__ . '/../middleware/authCheck.php';
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <h1>Welcome to the Vacation Portal</h1>
     <div class="login-container">
         <h2>Log-In</h2>
         <form action="login.php" method="POST">

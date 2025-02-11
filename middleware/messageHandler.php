@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 function addMessage($type, $text) {
     $_SESSION['messages'][] = ["type" => $type, "text" => $text];
@@ -11,7 +10,7 @@ function displayMessages() {
             $messageClass = $message['type'] === 'error' ? 'error' : 'success';
             echo "<p class='$messageClass'>" . htmlspecialchars($message['text']) . "</p>";
         }
-        unset($_SESSION['messages']); // Clear messages after display
-    }
+        unset($_SESSION['messages']);
+    }   
 }
 ?>

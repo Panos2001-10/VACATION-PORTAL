@@ -11,10 +11,9 @@ include __DIR__ . '/../middleware/authCheck.php';
     <title>Create User</title>
 </head>
 <body>
-    <h1>Welcome to the Vacation Portal</h1>
     <div class =register-container>
 
-    <h2>Register</h2> 
+    <h2>Create New User</h2> 
 
     <form action="createUser.php" method="POST">
         <label>Full Name:</label>
@@ -39,7 +38,7 @@ include __DIR__ . '/../middleware/authCheck.php';
             <label for="employee">Employee</label>
         </div>
 
-        <button type="submit">Register</button>
+        <button type="submit">Create New User</button>
     </form>
     </div>
 
