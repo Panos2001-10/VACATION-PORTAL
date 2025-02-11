@@ -4,20 +4,19 @@ include __DIR__ . '/../middleware/messageHandler.php';
 include __DIR__ . '/../middleware/authCheck.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $id = $_POST["id"];
+    $employeeCode = $_POST["id"];
     $fullname = trim($_POST["fullname"]);
     $email = trim($_POST["email"]);
-    $employee_code = $_POST["employee_code"];
     $password = trim($_POST["password"]);
 
     // Prepare the update query
     if (!empty($password)) {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = $connection->prepare("UPDATE users SET name = ?, email = ?, employee_code = ?, password = ? WHERE id = ?");
-        $stmt->bind_param("ssssi", $fullname, $email, $employee_code, $hashed_password, $id);
+        $stmt = $connection->prepare("UPDATE users SET full_name = ?, email = ?, password = ? WHERE employee_code = ?");
+        $stmt->bind_param("sssi", $fullname, $email, $hashed_password, $employeeCode);
     } else {
-        $stmt = $connection->prepare("UPDATE users SET name = ?, email = ?, employee_code = ? WHERE id = ?");
-        $stmt->bind_param("sssi", $fullname, $email, $employee_code, $id);
+        $stmt = $connection->prepare("UPDATE users SET full_name = ?, email = ? WHERE employee_code = ?");
+        $stmt->bind_param("ssi", $fullname, $email, $employeeCode);
     }
 
     if ($stmt->execute()) {

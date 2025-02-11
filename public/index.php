@@ -1,18 +1,7 @@
 <?php
-session_start();
 include __DIR__ . '/../src/config.php';
 include __DIR__ . '/../middleware/messageHandler.php';
-
-// Check if the user is already logged in
-if (isset($_SESSION["user_id"])) {
-    if ($_SESSION["user_role"] == "manager") {
-        header("Location: manageUsersForm.php");
-        exit();
-    } elseif ($_SESSION["user_role"] == "employee") {
-        header("Location: dashboard.php");
-        exit();
-    }
-}
+include __DIR__ . '/../middleware/authCheck.php';
 ?>
 
 <!DOCTYPE html>

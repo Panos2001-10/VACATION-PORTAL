@@ -3,7 +3,6 @@ include __DIR__ . '/../src/config.php';
 include __DIR__ . '/../middleware/messageHandler.php';
 include __DIR__ . '/../middleware/authCheck.php';
 
-
 // Validate and sanitize the user ID
 if (!isset($_GET['id']) || !ctype_digit($_GET['id'])) {
     addMessage("error", "Invalid request.");
@@ -11,11 +10,11 @@ if (!isset($_GET['id']) || !ctype_digit($_GET['id'])) {
     exit();
 }
 
-$employee_id = (int) $_GET['id']; // Cast to integer for safety
+$employeeCode = (int) $_GET['id']; // Cast to integer for safety
 
 // Prepare and execute the delete query
-$stmt = $connection->prepare("DELETE FROM users WHERE id = ?");
-$stmt->bind_param("i", $employee_id);
+$stmt = $connection->prepare("DELETE FROM users WHERE employee_code = ?");
+$stmt->bind_param("i", $employeeCode);
 
 if ($stmt->execute()) {
     addMessage("success", "User deleted successfully.");

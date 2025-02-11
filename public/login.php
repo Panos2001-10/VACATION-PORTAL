@@ -10,23 +10,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password'];
 
     // Prevent SQL Injection: Use prepared statements
-    $stmt = $connection->prepare("SELECT id, password, role FROM users WHERE email = ?");
+    $stmt = $connection->prepare("SELECT employee_code, full_name, email, password, role FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $stmt->store_result();
 
     // Check if the user exists
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($id, $hashed_password, $role);
+        $stmt->bind_result($employeeCode, $fullName, $userEmail, $hashed_password, $role);
         $stmt->fetch(); // Get the result
 
         // Check if the password is correct (hashed password comparison)
         if (password_verify($password, $hashed_password)) {
-            // Store user data in session to track login status
-            $_SESSION['user_id'] = $id;
+            // Store user data in session (excluding password)
+            $_SESSION['user_employee_code'] = $employeeCode;
+            $_SESSION['user_full_name'] = $fullName;
+            $_SESSION['user_email'] = $userEmail;
             $_SESSION['user_role'] = $role;
-            header("Location: index.php");
-            exit();
+
+            // Redirect to the correct page based on role
+            if ($role == 'manager') {
+                header("Location: manageUsersForm.php");
+                exit();
+            } elseif ($role == 'employee') {
+                header("Location: vacationRequestsForm.php");
+                exit();
+            }
         } else {
             addMessage("error", "Incorrect password.");
         }

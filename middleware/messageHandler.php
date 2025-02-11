@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 function addMessage($type, $text) {
     $_SESSION['messages'][] = ["type" => $type, "text" => $text];
