@@ -13,7 +13,8 @@ include __DIR__ . '/../middleware/messageHandler.php';
 </head>
 <body>
     <h2>Vacation Request</h2>
-    
+    <a href="vacationRequestsForm.php">Back to vacation requests</a><br>
+
     <form action="requestSubmition.php" method="POST">
         <label for="start_date">Date from:</label>
         <input type="date" name="start_date" required>

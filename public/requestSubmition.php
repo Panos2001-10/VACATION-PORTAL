@@ -34,7 +34,7 @@ if ($stmt->execute()) {
     addMessage("error", "An error occurred. Please try again.");
 }
 
-// Redirect back to the form or another page
-header("Location: requestSubmitionForm.php");
+// Redirect back to the vacation requests form after submitting
+header("Location: vacationRequestsForm.php");
 exit();
 ?>

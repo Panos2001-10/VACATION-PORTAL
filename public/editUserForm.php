@@ -33,6 +33,9 @@ if (!$employee) {
 </head>
 <body>
     <h2>Edit Employee</h2>
+    <a href="manageUsersForm.php">Back to Employees</a><br>
+
+    <br>
     <form action="editUser.php" method="POST">
         <input type="hidden" name="id" value="<?php echo $employee['employee_code']; ?>">
 

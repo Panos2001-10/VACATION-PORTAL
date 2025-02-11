@@ -2,36 +2,13 @@
 include __DIR__ . '/../src/config.php';
 include __DIR__ . '/../middleware/messageHandler.php';
 include __DIR__ . '/../middleware/authCheck.php';
-
-// Ensure user is logged in
-if (!isset($_SESSION['user_employee_code'])) {
-    addMessage('error', 'Something went wrong. Please try again!');
-    header('Location: index.php'); // Redirect to login page
-    exit();
-}
+include __DIR__ . '/../middleware/utils.php';
 
 // Fetch vacation requests for the logged-in user
 $stmt = $connection->prepare("SELECT id, employee_code, start_date, end_date, reason, status FROM requests WHERE employee_code = ?");
 $stmt->bind_param("i", $_SESSION['user_employee_code']);
 $stmt->execute();
 $result = $stmt->get_result();
-
-// Function to calculate total weekdays between two dates
-function countWeekdays($start_date, $end_date) {
-    $start = new DateTime($start_date);
-    $end = new DateTime($end_date);
-    $interval = new DateInterval('P1D'); // 1-day interval
-    $dateRange = new DatePeriod($start, $interval, $end->modify('+1 day')); // Include end date
-    $weekdayCount = 0;
-
-    foreach ($dateRange as $date) {
-        if ($date->format('N') < 6) { // 1 (Monday) to 5 (Friday) are weekdays
-            $weekdayCount++;
-        }
-    }
-
-    return $weekdayCount;
-}
 ?>
 
 <!DOCTYPE html>

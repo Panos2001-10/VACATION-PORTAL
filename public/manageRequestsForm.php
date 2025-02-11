@@ -2,6 +2,7 @@
 include __DIR__ . '/../src/config.php';
 include __DIR__ . '/../middleware/messageHandler.php';
 include __DIR__ . '/../middleware/authCheck.php';
+include __DIR__ . '/../middleware/utils.php';
 
 // Get employee_code from URL
 $employee_code = $_GET['employee_code'] ?? null;
@@ -11,6 +12,14 @@ if (!$employee_code) {
     header("Location: manageUsersForm.php");
     exit();
 }
+
+// Fetch the employee's full name
+$stmt = $connection->prepare("SELECT full_name FROM users WHERE employee_code = ?");
+$stmt->bind_param("i", $employee_code);
+$stmt->execute();
+$employee_result = $stmt->get_result();
+$employee = $employee_result->fetch_assoc();
+$employee_full_name = $employee['full_name'] ?? 'Unknown Employee';
 
 // Fetch vacation requests
 $stmt = $connection->prepare("SELECT id, start_date, end_date, reason, status FROM requests WHERE employee_code = ?");
@@ -29,12 +38,13 @@ $result = $stmt->get_result();
 <body>
     <h2>Vacation Requests</h2>
     <a href="manageUsersForm.php">Back to Employees</a><br>
+    <h3>These requests are from: <?php echo htmlspecialchars($employee_full_name); ?></h3>
 
-    <br>
     <table border="1">
         <tr>
             <th>Start Date</th>
             <th>End Date</th>
+            <th>Total Days</th>
             <th>Reason</th>
             <th>Status</th>
             <th>Actions</th>
@@ -43,6 +53,7 @@ $result = $stmt->get_result();
         <tr>
             <td><?php echo htmlspecialchars($row['start_date']); ?></td>
             <td><?php echo htmlspecialchars($row['end_date']); ?></td>
+            <td><?php echo countWeekdays($row['start_date'], $row['end_date']) . " days"; ?></td>
             <td><?php echo htmlspecialchars($row['reason']); ?></td>
             <td><?php echo htmlspecialchars($row['status']); ?></td>
             <td>
@@ -60,6 +71,12 @@ $result = $stmt->get_result();
     <br>
     <div class="messages">
         <?php displayMessages(); ?>
+    </div>
+    
+    <br>
+    <div class="logout">
+        <p>You are logged in as: <?php echo $_SESSION['user_full_name'] . ", " . $_SESSION['user_role']; ?></p>
+        <a href="logout.php">Logout</a>
     </div>
 </body>
 </html>

@@ -13,8 +13,10 @@ include __DIR__ . '/../middleware/authCheck.php';
 <body>
     <div class =register-container>
 
-    <h2>Create New User</h2> 
+    <h2>Create New User</h2>
+    <a href="manageUsersForm.php">Back to Employees</a><br>
 
+    <br>
     <form action="createUser.php" method="POST">
         <label>Full Name:</label>
         <input type="fullname" name="fullname" required>

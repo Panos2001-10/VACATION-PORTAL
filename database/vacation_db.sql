@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Εξυπηρετητής: 127.0.0.1
--- Χρόνος δημιουργίας: 09 Φεβ 2025 στις 17:27:48
+-- Χρόνος δημιουργίας: 11 Φεβ 2025 στις 12:37:27
 -- Έκδοση διακομιστή: 10.4.32-MariaDB
 -- Έκδοση PHP: 8.2.12
 
@@ -35,7 +35,7 @@ CREATE TABLE `requests` (
   `end_date` date NOT NULL,
   `total_days` int(11) GENERATED ALWAYS AS (to_days(`end_date`) - to_days(`start_date`) + 1) STORED,
   `reason` text NOT NULL,
-  `status` enum('pending','approved','declined') DEFAULT 'pending'
+  `status` enum('pending','approved','rejected') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -45,9 +45,9 @@ CREATE TABLE `requests` (
 INSERT INTO `requests` (`id`, `employee_code`, `full_name`, `start_date`, `end_date`, `reason`, `status`) VALUES
 (1, 1111115, 'Alexandra Politou', '2025-06-10', '2025-06-20', 'Summer vacation', 'pending'),
 (2, 1111112, 'Katerina Haskou', '2025-04-15', '2025-04-22', 'Family visit', 'pending'),
-(3, 1111114, 'George Nasiopoulos', '2025-07-05', '2025-07-15', 'Trip abroad', 'pending'),
+(3, 1111114, 'George Nasiopoulos', '2025-07-05', '2025-07-15', 'Trip abroad', 'rejected'),
 (4, 1111113, 'Katerina Lamprou', '2025-12-23', '2026-01-02', 'Christmas holidays', 'pending'),
-(5, 1111112, 'Katerina Haskou', '2025-02-14', '2025-02-17', 'Romantic trip', 'pending');
+(6, 1111113, 'Katerina Lamprou', '2025-02-14', '2025-02-17', 'Romantic Trip', 'approved');
 
 -- --------------------------------------------------------
 
@@ -72,7 +72,8 @@ INSERT INTO `users` (`employee_code`, `full_name`, `email`, `password`, `role`) 
 (1111112, 'Katerina Haskou', 'katehaskou@gmail.com', '$2y$10$tM7JzNw/mJIvOLegNYs0u./wsl9I717573gUdAX338F.OHAVbSVO.', 'employee'),
 (1111113, 'Katerina Lamprou', 'katerinalamprou21@gmail.com', '$2y$10$QaRE7WMNQTnV7Uj3pXv/cOtlcUul5YaftzedQKNLH5Q8vfIJeI94e', 'employee'),
 (1111114, 'George Nasiopoulos', 'gnash92@gmail.com', '$2y$10$BGVRKq6ZzErDj9vNcyHn7O0bannBAn7q05vFv4KmEY15VWxOnuT9S', 'employee'),
-(1111115, 'Alexandra Politou', 'politoualexandra@gmail.com', '$2y$10$.Duxp/J1S3nuUKuxbr/fCeX2hY7lZ3H42zIu3Gt6Uyu7QYKVTVI.S', 'employee');
+(1111115, 'Alexandra Politou', 'politoualexandra@gmail.com', '$2y$10$.Duxp/J1S3nuUKuxbr/fCeX2hY7lZ3H42zIu3Gt6Uyu7QYKVTVI.S', 'employee'),
+(1111116, 'Sotiris Kapsochas', 'sotkapsochas@gmail.com', '$2y$10$OZmKkK4.knOilJTt8WCJlOq1NsqSNyAKJfP/eB/6kJPx8ZZZrznOu', 'employee');
 
 --
 -- Ευρετήρια για άχρηστους πίνακες
@@ -100,13 +101,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT για πίνακα `requests`
 --
 ALTER TABLE `requests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT για πίνακα `users`
 --
 ALTER TABLE `users`
-  MODIFY `employee_code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1111116;
+  MODIFY `employee_code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1111117;
 
 --
 -- Περιορισμοί για άχρηστους πίνακες
