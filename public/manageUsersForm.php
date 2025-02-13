@@ -3,8 +3,10 @@ include __DIR__ . '/../src/config.php';
 include __DIR__ . '/../middleware/messageHandler.php';
 include __DIR__ . '/../middleware/authCheck.php';
 
-// Fetch all employees from the database
-$stmt = $connection->prepare("SELECT employee_code, full_name, email FROM users WHERE role = 'employee'");
+// Fetch all employees who have the same manager_code as the logged-in manager
+$managerCode = $_SESSION['user_employee_code']; // Assuming manager's employee code is saved in session
+$stmt = $connection->prepare("SELECT employee_code, full_name, email FROM users WHERE role = 'employee' AND manager_code = ?");
+$stmt->bind_param("i", $managerCode); // Bind the manager code to the query
 $stmt->execute();
 $result = $stmt->get_result();
 ?>
