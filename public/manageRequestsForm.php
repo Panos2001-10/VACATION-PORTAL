@@ -56,33 +56,38 @@ $result = $stmt->get_result();
     
     <br>
     <h3>These requests are from: <?php echo htmlspecialchars($employee_full_name); ?></h3>
-    <table border="1">
-        <tr>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Total Days</th>
-            <th>Reason</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
-        <?php while ($row = $result->fetch_assoc()): ?>
-        <tr>
-            <td><?php echo htmlspecialchars($row['start_date']); ?></td>
-            <td><?php echo htmlspecialchars($row['end_date']); ?></td>
-            <td><?php echo countWeekdays($row['start_date'], $row['end_date']) . " days"; ?></td>
-            <td><?php echo htmlspecialchars($row['reason']); ?></td>
-            <td><?php echo htmlspecialchars($row['status']); ?></td>
-            <td>
-                <?php if ($row['status'] === 'pending'): ?>
-                    <a href="manageRequests.php?id=<?php echo $row['id']; ?>&action=approved">Approve</a> |
-                    <a href="manageRequests.php?id=<?php echo $row['id']; ?>&action=rejected">Reject</a>
-                <?php else: ?>
-                    <em>No Actions Available</em>
-                <?php endif; ?>
-            </td>
-        </tr>
-        <?php endwhile; ?>
-    </table>
+    
+    <?php if ($result->num_rows === 0): ?>
+        <h2>No vacation requests found for this employee.</h2>
+    <?php else: ?>
+        <table border="1">
+            <tr>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Total Days</th>
+                <th>Reason</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            <?php while ($row = $result->fetch_assoc()): ?>
+            <tr>
+                <td><?php echo htmlspecialchars($row['start_date']); ?></td>
+                <td><?php echo htmlspecialchars($row['end_date']); ?></td>
+                <td><?php echo countWeekdays($row['start_date'], $row['end_date']) . " days"; ?></td>
+                <td><?php echo htmlspecialchars($row['reason']); ?></td>
+                <td><?php echo htmlspecialchars($row['status']); ?></td>
+                <td>
+                    <?php if ($row['status'] === 'pending'): ?>
+                        <a href="manageRequests.php?id=<?php echo $row['id']; ?>&action=approved">Approve</a> |
+                        <a href="manageRequests.php?id=<?php echo $row['id']; ?>&action=rejected">Reject</a>
+                    <?php else: ?>
+                        <em>No Actions Available</em>
+                    <?php endif; ?>
+                </td>
+            </tr>
+            <?php endwhile; ?>
+        </table>
+    <?php endif; ?>
     
     <br>
     <a href="manageUsersForm.php">Back to Employees</a>

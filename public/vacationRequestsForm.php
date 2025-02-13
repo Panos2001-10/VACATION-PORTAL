@@ -29,43 +29,48 @@ $result = $stmt->get_result();
     
     <br>
     <a href="requestSubmitionForm.php">+ Submit New Request</a>
-    <table border="1">
-        <tr>
-            <th>Date Submitted</th>
-            <th>Dates Requested</th>
-            <th>Total Days (Weekdays only)</th>
-            <th>Reason</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
-        <?php while ($row = $result->fetch_assoc()): ?>
-        <tr>
-            <!-- Date Submitted: Use the actual submitted date from the database -->
-            <td><?php echo date('Y-m-d', strtotime($row['submitted_date'])); ?></td>
+    
+    <?php if ($result->num_rows === 0): ?>
+        <h2>No vacation requests found.</h2>
+    <?php else: ?>
+        <table border="1">
+            <tr>
+                <th>Date Submitted</th>
+                <th>Dates Requested</th>
+                <th>Total Days (Weekdays only)</th>
+                <th>Reason</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            <?php while ($row = $result->fetch_assoc()): ?>
+            <tr>
+                <!-- Date Submitted: Use the actual submitted date from the database -->
+                <td><?php echo date('Y-m-d', strtotime($row['submitted_date'])); ?></td>
 
-            <!-- Dates Requested: Start Date to End Date -->
-            <td><?php echo htmlspecialchars($row['start_date']) . ' to ' . htmlspecialchars($row['end_date']); ?></td>
+                <!-- Dates Requested: Start Date to End Date -->
+                <td><?php echo htmlspecialchars($row['start_date']) . ' to ' . htmlspecialchars($row['end_date']); ?></td>
 
-            <!-- Total Days (Weekdays only) -->
-            <td><?php echo countWeekdays($row['start_date'], $row['end_date']) . " days"; ?></td>
+                <!-- Total Days (Weekdays only) -->
+                <td><?php echo countWeekdays($row['start_date'], $row['end_date']) . " days"; ?></td>
 
-            <!-- Reason -->
-            <td><?php echo htmlspecialchars($row['reason']); ?></td>
+                <!-- Reason -->
+                <td><?php echo htmlspecialchars($row['reason']); ?></td>
 
-            <!-- Status -->
-            <td><?php echo htmlspecialchars($row['status']); ?></td>
+                <!-- Status -->
+                <td><?php echo htmlspecialchars($row['status']); ?></td>
 
-            <!-- Delete Option (Only if status is 'pending') -->
-            <td>
-                <?php if ($row['status'] === 'pending'): ?>
-                    <a href="deleteRequest.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure you want to delete this request?');">Delete</a>
-                <?php else: ?>
-                    N/A
-                <?php endif; ?>
-            </td>
-        </tr>
-        <?php endwhile; ?>
-    </table>
+                <!-- Delete Option (Only if status is 'pending') -->
+                <td>
+                    <?php if ($row['status'] === 'pending'): ?>
+                        <a href="deleteRequest.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Are you sure you want to delete this request?');">Delete</a>
+                    <?php else: ?>
+                        N/A
+                    <?php endif; ?>
+                </td>
+            </tr>
+            <?php endwhile; ?>
+        </table>
+    <?php endif; ?>
     
     <br>
     <div class="messages">
