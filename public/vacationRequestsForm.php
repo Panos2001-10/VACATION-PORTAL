@@ -17,13 +17,18 @@ $result = $stmt->get_result();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vacation Requests</title>
+    <style>
+        <?php include __DIR__ .'/../public/style.css'; ?>
+    </style>
 </head>
 <body>
-    <h2>List of Vacation Requests</h2>
-
-    <a href="requestSubmitionForm.php">Submit new request</a>
-    <br><br>
-
+    <div class="main-title">
+        <h1>Vacation Portal</h1>
+        <h2>List of Vacation Requests</h2>
+    </div>
+    
+    <br>
+    <a href="requestSubmitionForm.php">+ Submit New Request</a>
     <table border="1">
         <tr>
             <th>Date Submitted</th>
@@ -68,9 +73,11 @@ $result = $stmt->get_result();
     </div>
     
     <br>
-    <div class="logout">
-        <p>You are logged in as: <?php echo $_SESSION['user_full_name'] . ", " . $_SESSION['user_role']; ?></p>
-        <a href="logout.php">Logout</a>
-    </div>
+    <footer>
+        <div class="logout">
+            <p>You are logged in as: <?php echo $_SESSION['user_full_name'] . " (" . $_SESSION['user_role'] . ")" ?></p>
+            <a href="logout.php">Log-Out</a>
+        </div>
+    </footer>
 </body>
 </html>

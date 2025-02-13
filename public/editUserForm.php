@@ -30,18 +30,23 @@ if (!$employee) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Employee</title>
+    <style>
+        <?php include __DIR__ .'/../public/style.css'; ?>
+    </style>
 </head>
 <body>
-    <h2>Edit Employee</h2>
-    <a href="manageUsersForm.php">Back to Employees</a><br>
-
+    <div class="main-title">
+        <h1>Vacation Portal</h1>
+        <h2>Edit Employee</h2>
+    </div>
+    
     <br>
     <form action="editUser.php" method="POST">
         <input type="hidden" name="id" value="<?php echo $employee['employee_code']; ?>">
-
+        
         <label for="fullname">Full Name:</label>
         <input type="text" name="fullname" value="<?php echo htmlspecialchars($employee['full_name']); ?>" required>
-
+        
         <br>
         <label for="email">Email:</label>
         <input type="email" name="email" value="<?php echo htmlspecialchars($employee['email']); ?>" required>
@@ -49,20 +54,28 @@ if (!$employee) {
         <br>
         <label for="password">New Password (leave blank to keep current password):</label>
         <input type="password" name="password">
+        <br>
         
         <br>
         <button type="submit">Save Changes</button>
+        
+        <br>
+        <div style="text-align: right; margin-top: 10px;">
+            <a href="manageUsersForm.php">Back to Employees</a>
+        </div>
     </form>
+
     <br>
     <div class="messages">
         <?php displayMessages(); ?>
     </div>
 
     <br>
-    <br>
-    <div class="logout">
-        <p>You are logged in as: <?php echo $_SESSION['user_full_name'], ", ", $_SESSION['user_role']?></p>
-        <a href="logout.php">Logout</a>
-    </div>
+    <footer>
+        <div class="logout">
+            <p>You are logged in as: <?php echo $_SESSION['user_full_name'] . " (" . $_SESSION['user_role'] . ")" ?></p>
+            <a href="logout.php">Log-Out</a>
+        </div>
+    </footer>
 </body>
 </html>

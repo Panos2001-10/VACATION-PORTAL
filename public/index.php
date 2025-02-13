@@ -10,12 +10,17 @@ include __DIR__ . '/../middleware/authCheck.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log-in/Register - Vacation Portal</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        <?php include __DIR__ .'/../public/style.css'; ?>
+    </style>
 </head>
 <body>
-    <h1>Welcome to the Vacation Portal</h1>
-    <div class="login-container">
+    <div class="main-title">
+        <h1>Welcome to Vacation Portal</h1>
         <h2>Log-In</h2>
+    </div>
+    
+    <div>
         <form action="login.php" method="POST">
             <label>Email:</label>
             <input type="email" name="email" required>
@@ -31,5 +36,6 @@ include __DIR__ . '/../middleware/authCheck.php';
     <div class="messages">
         <?php displayMessages(); ?>
     </div>
+
 </body>
 </html>

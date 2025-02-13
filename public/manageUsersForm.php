@@ -15,12 +15,18 @@ $result = $stmt->get_result();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Users</title>
+    <style>
+        <?php include __DIR__ .'/../public/style.css'; ?>
+    </style>
 </head>
 <body>
-    <h2>List of Employees</h2>
-    <a href="createUserForm.php">Create New User</a><br>
+    <div class="main-title">
+        <h1>Vacation Portal</h1>
+        <h2>List of Employees</h2>
+    </div>
     
     <br>
+    <a href="createUserForm.php">+ Create New User</a><br>
     <table border="1">
         <tr>
             <th>Name</th>
@@ -46,9 +52,11 @@ $result = $stmt->get_result();
     </div>
 
     <br>
-    <div class="logout">
-        <p>You are logged in as: <?php echo $_SESSION['user_full_name'], ", ", $_SESSION['user_role']?></p>
-        <a href="logout.php">Logout</a>
-    </div>
+    <footer>
+        <div class="logout">
+            <p>You are logged in as: <?php echo $_SESSION['user_full_name'] . " (" . $_SESSION['user_role'] . ")" ?></p>
+            <a href="logout.php">Log-Out</a>
+        </div>
+    </footer>
 </body>
 </html>

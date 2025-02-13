@@ -34,12 +34,18 @@ $result = $stmt->get_result();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Vacation Requests</title>
+    <style>
+        <?php include __DIR__ .'/../public/style.css'; ?>
+    </style>
 </head>
 <body>
-    <h2>Vacation Requests</h2>
-    <a href="manageUsersForm.php">Back to Employees</a><br>
+    <div class="main-title">
+        <h1>Vacation Portal</h1>
+        <h2>Vacation Requests</h2>
+    </div>
+    
+    <br>
     <h3>These requests are from: <?php echo htmlspecialchars($employee_full_name); ?></h3>
-
     <table border="1">
         <tr>
             <th>Start Date</th>
@@ -67,6 +73,9 @@ $result = $stmt->get_result();
         </tr>
         <?php endwhile; ?>
     </table>
+    
+    <br>
+    <a href="manageUsersForm.php">Back to Employees</a>
 
     <br>
     <div class="messages">
@@ -74,9 +83,11 @@ $result = $stmt->get_result();
     </div>
     
     <br>
-    <div class="logout">
-        <p>You are logged in as: <?php echo $_SESSION['user_full_name'] . ", " . $_SESSION['user_role']; ?></p>
-        <a href="logout.php">Logout</a>
-    </div>
+    <footer>
+        <div class="logout">
+            <p>You are logged in as: <?php echo $_SESSION['user_full_name'] . " (" . $_SESSION['user_role'] . ")" ?></p>
+            <a href="logout.php">Log-Out</a>
+        </div>
+    </footer>
 </body>
 </html>
