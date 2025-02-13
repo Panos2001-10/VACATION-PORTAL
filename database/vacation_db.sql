@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Εξυπηρετητής: 127.0.0.1
--- Χρόνος δημιουργίας: 11 Φεβ 2025 στις 12:37:27
+-- Χρόνος δημιουργίας: 13 Φεβ 2025 στις 15:00:05
 -- Έκδοση διακομιστή: 10.4.32-MariaDB
 -- Έκδοση PHP: 8.2.12
 
@@ -35,19 +35,21 @@ CREATE TABLE `requests` (
   `end_date` date NOT NULL,
   `total_days` int(11) GENERATED ALWAYS AS (to_days(`end_date`) - to_days(`start_date`) + 1) STORED,
   `reason` text NOT NULL,
-  `status` enum('pending','approved','rejected') NOT NULL
+  `status` enum('pending','approved','rejected') NOT NULL,
+  `submitted_date` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Άδειασμα δεδομένων του πίνακα `requests`
 --
 
-INSERT INTO `requests` (`id`, `employee_code`, `full_name`, `start_date`, `end_date`, `reason`, `status`) VALUES
-(1, 1111115, 'Alexandra Politou', '2025-06-10', '2025-06-20', 'Summer vacation', 'pending'),
-(2, 1111112, 'Katerina Haskou', '2025-04-15', '2025-04-22', 'Family visit', 'pending'),
-(3, 1111114, 'George Nasiopoulos', '2025-07-05', '2025-07-15', 'Trip abroad', 'rejected'),
-(4, 1111113, 'Katerina Lamprou', '2025-12-23', '2026-01-02', 'Christmas holidays', 'pending'),
-(6, 1111113, 'Katerina Lamprou', '2025-02-14', '2025-02-17', 'Romantic Trip', 'approved');
+INSERT INTO `requests` (`id`, `employee_code`, `full_name`, `start_date`, `end_date`, `reason`, `status`, `submitted_date`) VALUES
+(1, 1111115, 'Alexandra Politou', '2025-06-10', '2025-06-20', 'Summer vacation', 'pending', '2025-02-13 15:50:38'),
+(2, 1111112, 'Katerina Haskou', '2025-04-15', '2025-04-22', 'Family visit', 'pending', '2025-02-13 15:50:38'),
+(3, 1111114, 'George Nasiopoulos', '2025-07-05', '2025-07-15', 'Trip abroad', 'rejected', '2025-02-13 15:50:38'),
+(4, 1111113, 'Katerina Lamprou', '2025-12-23', '2026-01-02', 'Christmas holidays', 'pending', '2025-02-13 15:50:38'),
+(6, 1111113, 'Katerina Lamprou', '2025-02-14', '2025-02-17', 'Romantic Trip', 'approved', '2025-02-13 15:50:38'),
+(12, 1111115, 'Alexandra Politou', '2025-02-24', '2025-02-28', 'Fishing Trip', 'rejected', '2025-02-13 14:57:29');
 
 -- --------------------------------------------------------
 
@@ -101,7 +103,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT για πίνακα `requests`
 --
 ALTER TABLE `requests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT για πίνακα `users`
