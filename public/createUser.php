@@ -11,6 +11,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password'];
     $role = $_POST['role'];
 
+    // Validate full name (check if it contains only letters and spaces, and is not empty)
+    if (empty($fullname)) {
+        addMessage("error", "Full Name is required.");
+        header("Location: createUserForm.php");
+        exit();
+    } elseif (!preg_match("/^[a-zA-Z\s\-']+$/", $fullname)) {
+        addMessage("error", "Full Name must only contain letters, spaces, hyphens, and apostrophes.");
+        header("Location: createUserForm.php");
+        exit();
+    } elseif (strlen($fullname) < 3 || strlen($fullname) > 100) {
+        addMessage("error", "Full Name must be between 3 and 100 characters long.");
+        header("Location: createUserForm.php");
+        exit();
+    }
+
     // Validate employee code (7 digits)
     if (!preg_match("/^[0-9]{7}$/", $employeeCode)) {
         addMessage("error", "Invalid Employee Code. It must be a 7-digit number.");
