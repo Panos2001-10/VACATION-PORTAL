@@ -15,4 +15,18 @@ function countWeekdays($start_date, $end_date) {
 
     return $weekdayCount;
 }
+
+// Function to delete expired vacation requests
+function deleteExpiredRequests($connection) {
+    // Get current date
+    $currentDate = date("Y-m-d H:i:s");
+
+    // Delete rejected requests that are older than 2 days
+    $stmt = $connection->prepare("DELETE FROM requests WHERE status = 'rejected' AND submitted_date <= NOW() - INTERVAL 2 DAY");
+    $stmt->execute();
+
+    // Delete approved requests that are past the end date
+    $stmt = $connection->prepare("DELETE FROM requests WHERE status = 'approved' AND end_date < NOW()");
+    $stmt->execute();
+}
 ?>

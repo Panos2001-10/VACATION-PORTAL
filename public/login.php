@@ -2,6 +2,7 @@
 session_start();
 include __DIR__ . '/../src/config.php';
 include __DIR__ . '/../middleware/messageHandler.php';
+include __DIR__ . '/../middleware/utils.php';
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -22,6 +23,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Check if the password is correct (hashed password comparison)
         if (password_verify($password, $hashed_password)) {
+            // Requests table clean-up
+            deleteExpiredRequests($connection);
+
             // Store user data in session (excluding password)
             $_SESSION['user_manager_code'] = $managerCode;
             $_SESSION['user_employee_code'] = $employeeCode;
