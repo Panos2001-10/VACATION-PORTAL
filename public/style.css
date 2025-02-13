@@ -2,168 +2,239 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    box-sizing: border-box;  /* Ensures padding and borders don't affect element size */
+    font-family: Arial, sans-serif;  /* Set a default font */
 }
 
 /* ======= General Layout ======= */
 body {
-    background-color: #f4f4f4;
-    color: #333;
-    line-height: 1.6;
-    padding: 20px;
+    background-color: #f4f4f4;  /* Light gray background color */
+    color: #333;  /* Dark text color for better readability */
+    line-height: 1.6;  /* Makes the text more readable with a larger line height */
+    padding: 20px;  /* Adds padding around the body */
 }
 
 /* ======= Main ======= */
 body .main-title {
-    text-align: center;
-    padding: 20px;
+    text-align: center;  /* Center-align the title */
+    padding: 20px;  /* Adds padding around the title */
 }
-
 
 /* ======= Typography ======= */
 h1 {
-    color: #222;
-    margin-bottom: 10px;
+    color: #222;  /* Darker color for main headers */
+    margin-bottom: 10px;  /* Adds space below the header */
 }
 
 h2, h3 {
-    color: #222;
+    color: #222;  /* Ensures subheadings also have a dark color */
 }
 
 /* ======= Links ======= */
 a {
-    text-decoration: none;
-    color: #007BFF;
+    text-decoration: none;  /* Remove underline from links by default */
+    color: #007BFF;  /* Blue color for links */
 }
 
 a:hover {
-    text-decoration: underline;
+    text-decoration: underline;  /* Add underline on hover for links */
 }
 
 /* ======= Buttons ======= */
 button, .btn {
-    display: inline-block;
-    padding: 10px 15px;
-    background: #007BFF;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    display: inline-block;  /* Display buttons inline */
+    padding: 10px 15px;  /* Adds padding inside the buttons */
+    background: #007BFF;  /* Blue background for buttons */
+    color: #fff;  /* White text color */
+    border: none;  /* Removes default button borders */
+    border-radius: 5px;  /* Rounded corners for buttons */
+    cursor: pointer;  /* Pointer cursor to indicate the button is clickable */
 }
 
 button:hover, .btn:hover {
-    background: #0056b3;
+    background: #0056b3;  /* Darker blue background on hover */
 }
 
 /* ======= Forms ======= */
 form {
-    background: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    margin: auto;
+    background: #fff;  /* White background for the form */
+    padding: 20px;  /* Adds padding inside the form */
+    border-radius: 5px;  /* Rounded corners for the form */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  /* Adds subtle shadow for depth */
+    max-width: 400px;  /* Limits the form's width */
+    margin: auto;  /* Centers the form horizontally */
 }
 
 input, select {
-    width: 100%;
-    padding: 8px;
-    margin: 8px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    width: 100%;  /* Make form inputs and select elements full width */
+    padding: 8px;  /* Adds padding inside input fields */
+    margin: 8px 0;  /* Adds space between form elements */
+    border: 1px solid #ccc;  /* Light gray border for input fields */
+    border-radius: 4px;  /* Slightly rounded corners for inputs */
 }
 
 label {
-    font-weight: bold;
+    font-weight: bold;  /* Make labels bold for better readability */
 }
 
+/* ======= Role Selection (Radio Buttons) ======= */
 .role-selection {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 10px 0;
-    margin-bottom: 20px;
+    display: flex;  /* Use flexbox for horizontal layout */
+    align-items: center;  /* Vertically align items */
+    gap: 20px;  /* Space between radio buttons */
+    padding: 10px 0;  /* Adds vertical padding */
+    margin-bottom: 20px;  /* Space below the role selection */
 }
 
 .role-selection input[type="radio"] {
-    width: 18px;
+    width: 18px;  /* Set the size of the radio buttons */
     height: 18px;
-    margin: 0;
-    cursor: pointer;
+    margin: 0;  /* Removes default margin */
+    cursor: pointer;  /* Pointer cursor to indicate interactivity */
 }
 
 .role-selection label {
-    font-size: 16px;
-    cursor: pointer;
-    transition: color 0.3s ease;
+    font-size: 16px;  /* Sets the font size for labels */
+    cursor: pointer;  /* Pointer cursor on hover */
+    transition: color 0.3s ease;  /* Smooth transition for color change */
 }
 
 .role-selection label:hover {
-    color: #007BFF;
+    color: #007BFF;  /* Change label color on hover */
 }
 
+/* ======= Textarea ======= */
 textarea {
     width: 100%;  /* Full width of its container */
-    height: 150px; /* Or any desired height */
-    padding: 10px; /* Adds some padding inside the textarea */
-    font-size: 14px; /* Sets the text size */
-    border-radius: 5px; /* Optional: rounds the corners */
-    border: 1px solid #ccc; /* Light border */
-    box-sizing: border-box; /* Ensures padding doesn't affect width */
-    resize: none; /* Disable resizing */
+    height: 150px;  /* Set default height */
+    padding: 10px;  /* Adds padding inside the textarea */
+    font-size: 14px;  /* Sets text size */
+    border-radius: 5px;  /* Rounded corners */
+    border: 1px solid #ccc;  /* Light gray border */
+    box-sizing: border-box;  /* Ensures padding doesn't affect width */
+    resize: none;  /* Disable resizing of the textarea */
 }
 
 textarea:focus {
-    border-color: #007BFF; /* Highlight border on focus */
-    outline: none;
+    border-color: #007BFF;  /* Change border color when focused */
+    outline: none;  /* Remove default outline on focus */
 }
-
 
 /* ======= Tables ======= */
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    background: #fff;
+    width: 100%;  /* Table takes full width of its container */
+    border-collapse: collapse;  /* Removes space between table cells */
+    margin: 20px 0;  /* Adds vertical margin around the table */
+    background: #fff;  /* White background for the table */
 }
 
 th, td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: left;
+    padding: 10px;  /* Adds padding inside table cells */
+    border: 1px solid #ddd;  /* Light gray border for table cells */
+    text-align: left;  /* Left-align text inside table cells */
 }
 
 th {
-    background: #007BFF;
-    color: #fff;
+    background: #007BFF;  /* Blue background for table headers */
+    color: #fff;  /* White text for headers */
 }
 
 /* ======= Messages & Alerts ======= */
 .messages {
-    text-align: center;
+    text-align: center;  /* Center-align messages */
 }
 
 .messages .success {
-    padding: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    background: #d4edda;
-    color: #155724;
+    padding: 20px;  /* Adds padding inside the success message */
+    margin-top: 20px;  /* Adds space above */
+    margin-bottom: 20px;  /* Adds space below */
+    background: #d4edda;  /* Light green background for success */
+    color: #155724;  /* Dark green text color */
 }
 
 .messages .error {
     padding: 20px;
     margin-top: 20px;
     margin-bottom: 20px;
-    background: #f8d7da;
-    color: #721c24;
+    background: #f8d7da;  /* Light red background for error */
+    color: #721c24;  /* Dark red text color */
 }
 
 /* ======= Footer ======= */
 footer {
-    text-align: center;
-    padding: 20px;
-    margin-top: 20px;
-    background: #ddd;
+    text-align: center;  /* Center-align footer text */
+    padding: 20px;  /* Adds padding inside the footer */
+    margin-top: 20px;  /* Adds space above the footer */
+    background: #ddd;  /* Light gray background for the footer */
+}
+
+/* ======= Media Queries ======= */
+
+/* Mobile devices (small screens) */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;  /* Reduced padding on small screens */
+    }
+
+    form {
+        width: 100%;  /* Full-width form on mobile */
+        padding: 15px;  /* Reduced padding inside form */
+        margin: 0;  /* Remove margin around the form */
+    }
+
+    .role-selection {
+        flex-direction: column;  /* Stack radio buttons vertically on small screens */
+        gap: 10px;  /* Reduce gap between radio buttons */
+    }
+
+    .role-selection input[type="radio"] {
+        width: 20px;  /* Slightly larger radio buttons */
+        height: 20px;
+    }
+
+    .role-selection label {
+        font-size: 14px;  /* Smaller font size for labels */
+    }
+
+    textarea {
+        height: 120px;  /* Smaller height for textarea on mobile */
+    }
+
+    table {
+        font-size: 14px;  /* Smaller font size for tables */
+    }
+
+    th, td {
+        padding: 8px;  /* Reduced padding inside table cells */
+    }
+}
+
+/* Tablet devices (medium screens) */
+@media (max-width: 768px) {
+    form {
+        width: 90%;  /* Form width adjusted for tablet screens */
+    }
+
+    .role-selection {
+        gap: 15px;  /* Slightly smaller gap between radio buttons */
+    }
+
+    textarea {
+        height: 130px;  /* Adjusted height for textarea on tablet */
+    }
+}
+
+/* Larger screens (desktops and above) */
+@media (min-width: 1024px) {
+    form {
+        max-width: 500px;  /* Increase form width on larger screens */
+    }
+
+    textarea {
+        height: 180px;  /* Larger height for textarea on larger screens */
+    }
+
+    .role-selection {
+        gap: 30px;  /* Increased gap between radio buttons on large screens */
+    }
 }
