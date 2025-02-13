@@ -13,17 +13,27 @@ if (!$employee_code) {
     exit();
 }
 
-// Fetch the employee's full name
-$stmt = $connection->prepare("SELECT full_name FROM users WHERE employee_code = ?");
-$stmt->bind_param("i", $employee_code);
+// Get manager_code from session (logged-in manager)
+$manager_code = $_SESSION['user_employee_code'];
+
+// Fetch the employee's full name if they belong to the manager
+$stmt = $connection->prepare("SELECT full_name FROM users WHERE employee_code = ? AND manager_code = ?");
+$stmt->bind_param("ii", $employee_code, $manager_code);
 $stmt->execute();
 $employee_result = $stmt->get_result();
+
+if ($employee_result->num_rows === 0) {
+    addMessage("error", "This employee does not belong to your team.");
+    header("Location: manageUsersForm.php");
+    exit();
+}
+
 $employee = $employee_result->fetch_assoc();
 $employee_full_name = $employee['full_name'] ?? 'Unknown Employee';
 
-// Fetch vacation requests
-$stmt = $connection->prepare("SELECT id, start_date, end_date, reason, status FROM requests WHERE employee_code = ?");
-$stmt->bind_param("i", $employee_code);
+// Fetch vacation requests for this employee (who is managed by the logged-in manager)
+$stmt = $connection->prepare("SELECT id, start_date, end_date, reason, status FROM requests WHERE employee_code = ? AND manager_code = ?");
+$stmt->bind_param("ii", $employee_code, $manager_code);
 $stmt->execute();
 $result = $stmt->get_result();
 ?>
@@ -64,8 +74,8 @@ $result = $stmt->get_result();
             <td><?php echo htmlspecialchars($row['status']); ?></td>
             <td>
                 <?php if ($row['status'] === 'pending'): ?>
-                    <a href="manageRequets.php?id=<?php echo $row['id']; ?>&action=approved">Approve</a> |
-                    <a href="manageRequets.php?id=<?php echo $row['id']; ?>&action=rejected">Reject</a>
+                    <a href="manageRequests.php?id=<?php echo $row['id']; ?>&action=approved">Approve</a> |
+                    <a href="manageRequests.php?id=<?php echo $row['id']; ?>&action=rejected">Reject</a>
                 <?php else: ?>
                     <em>No Actions Available</em>
                 <?php endif; ?>

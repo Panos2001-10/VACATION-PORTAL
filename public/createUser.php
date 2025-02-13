@@ -33,9 +33,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Hash the password before saving it to the database
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    // Insert new user
-    $stmt = $connection->prepare("INSERT INTO users (employee_code, full_name, email, password, role) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("issss", $employeeCode, $fullname, $email, $hashed_password, $role);
+    // Determine the manager code
+    if ($role == 'manager') {
+        // For managers, set the manager code as the employee code
+        $managerCode = $employeeCode;
+    } else {
+        // For employees, set the manager code from the session
+        if (isset($_SESSION['user_manager_code'])) {
+            $managerCode = $_SESSION['user_manager_code'];
+        } else {
+            addMessage("error", "Manager code is missing. Please ensure you are logged in as an employee.");
+            header("Location: createUserForm.php");
+            exit();
+        }
+    }
+
+    // Insert new user with manager code
+    $stmt = $connection->prepare("INSERT INTO users (manager_code, employee_code, full_name, email, password, role) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("iissss", $managerCode, $employeeCode, $fullname, $email, $hashed_password, $role);
 
     if ($stmt->execute()) {
         addMessage("success", "New user created successfully!");
