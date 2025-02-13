@@ -16,6 +16,7 @@ $fullName = $_SESSION['user_full_name'];
 $startDate = $_POST['start_date'];
 $endDate = $_POST['end_date'];
 $reason = $_POST['reason'];
+$submittedDate = date("Y-m-d H:i:s");  // Get the current date and time
 
 // Validate dates
 if (strtotime($startDate) > strtotime($endDate)) {
@@ -25,8 +26,8 @@ if (strtotime($startDate) > strtotime($endDate)) {
 }
 
 // Insert the vacation request into the database
-$stmt = $connection->prepare("INSERT INTO requests (employee_code, full_name, start_date, end_date, reason, status) VALUES (?, ?, ?, ?, ?, 'pending')");
-$stmt->bind_param("issss", $employeeCode, $fullName, $startDate, $endDate, $reason);
+$stmt = $connection->prepare("INSERT INTO requests (employee_code, full_name, submitted_date, start_date, end_date, reason, status) VALUES (?, ?, ?, ?, ?, ?, 'pending')");
+$stmt->bind_param("isssss", $employeeCode, $fullName, $submittedDate, $startDate, $endDate, $reason);
 
 if ($stmt->execute()) {
     addMessage("success", "Vacation request submitted successfully!");

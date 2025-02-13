@@ -5,7 +5,7 @@ include __DIR__ . '/../middleware/authCheck.php';
 include __DIR__ . '/../middleware/utils.php';
 
 // Fetch vacation requests for the logged-in user
-$stmt = $connection->prepare("SELECT id, employee_code, start_date, end_date, reason, status FROM requests WHERE employee_code = ?");
+$stmt = $connection->prepare("SELECT id, employee_code, start_date, end_date, reason, status, submitted_date FROM requests WHERE employee_code = ?");
 $stmt->bind_param("i", $_SESSION['user_employee_code']);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -40,8 +40,8 @@ $result = $stmt->get_result();
         </tr>
         <?php while ($row = $result->fetch_assoc()): ?>
         <tr>
-            <!-- Date Submitted: Current Date -->
-            <td><?php echo date('Y-m-d'); ?></td>
+            <!-- Date Submitted: Use the actual submitted date from the database -->
+            <td><?php echo date('Y-m-d', strtotime($row['submitted_date'])); ?></td>
 
             <!-- Dates Requested: Start Date to End Date -->
             <td><?php echo htmlspecialchars($row['start_date']) . ' to ' . htmlspecialchars($row['end_date']); ?></td>
