@@ -11,11 +11,12 @@ include __DIR__ . '/../middleware/authCheck.php';
     <title>Create User</title>
 </head>
 <body>
-    <h1>Welcome to the Vacation Portal</h1>
     <div class =register-container>
 
-    <h2>Register</h2> 
+    <h2>Create New User</h2>
+    <a href="manageUsersForm.php">Back to Employees</a><br>
 
+    <br>
     <form action="createUser.php" method="POST">
         <label>Full Name:</label>
         <input type="fullname" name="fullname" required>
@@ -39,7 +40,7 @@ include __DIR__ . '/../middleware/authCheck.php';
             <label for="employee">Employee</label>
         </div>
 
-        <button type="submit">Register</button>
+        <button type="submit">Create New User</button>
     </form>
     </div>
 

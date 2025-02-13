@@ -18,7 +18,9 @@ $result = $stmt->get_result();
 </head>
 <body>
     <h2>List of Employees</h2>
-    <a href="createUserForm.php">Create User</a>
+    <a href="createUserForm.php">Create New User</a><br>
+    
+    <br>
     <table border="1">
         <tr>
             <th>Name</th>
@@ -31,7 +33,8 @@ $result = $stmt->get_result();
             <td><?php echo htmlspecialchars($row['email']); ?></td>
             <td>
                 <a href="editUserForm.php?id=<?php echo $row['employee_code']; ?>">Edit</a> |
-                <a href="deleteUser.php?id=<?php echo $row['employee_code']; ?>" onclick="return confirm('Are you sure?');">Delete</a>
+                <a href="deleteUser.php?id=<?php echo $row['employee_code']; ?>" onclick="return confirm('Are you sure?');">Delete</a> |
+                <a href="manageRequestsForm.php?employee_code=<?php echo $row['employee_code']; ?>">See Vacation Requests</a>
             </td>
         </tr>
         <?php endwhile; ?>
