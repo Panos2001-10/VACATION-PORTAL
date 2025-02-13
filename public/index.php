@@ -10,7 +10,7 @@ include __DIR__ . '/../middleware/authCheck.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log-in/Register - Vacation Portal</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Welcome to the Vacation Portal</h1>
