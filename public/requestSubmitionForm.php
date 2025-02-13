@@ -39,7 +39,7 @@ include __DIR__ . '/../middleware/messageHandler.php';
 
             <br>
             <div style="text-align: right; margin-top: 10px;">
-                <a href="manageUsersForm.php">Back to Employees</a>
+                <a href="vacationRequestsForm.php">Back to Requests</a>
             </div>
         </form>
     </div>
