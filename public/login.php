@@ -1,8 +1,8 @@
 <?php
 session_start();
 include __DIR__ . '/../src/config.php';
+include __DIR__ . '/../src/utils.php';
 include __DIR__ . '/../middleware/messageHandler.php';
-include __DIR__ . '/../middleware/utils.php';
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

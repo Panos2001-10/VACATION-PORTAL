@@ -27,8 +27,12 @@ if (strtotime($startDate) > strtotime($endDate)) {
 }
 
 // Insert the vacation request into the database, including the manager_code
-$stmt = $connection->prepare("INSERT INTO requests (manager_code, employee_code, full_name, submitted_date, start_date, end_date, reason, status) VALUES (?, ?, ?, ?, ?, ?, ?, 'pending')");
-$stmt->bind_param("iisssss",$managerCode, $employeeCode, $fullName, $submittedDate, $startDate, $endDate, $reason);
+$stmt = $connection->prepare("
+    INSERT INTO requests (employee_code, submitted_date, start_date, end_date, reason, status)
+    VALUES (?, ?, ?, ?, ?, 'pending')
+");
+$stmt->bind_param("issss", $employeeCode, $submittedDate, $startDate, $endDate, $reason);
+
 
 if ($stmt->execute()) {
     addMessage("success", "Vacation request submitted successfully!");

@@ -1,8 +1,8 @@
 <?php
 include __DIR__ . '/../src/config.php';
+include __DIR__ . '/../src/utils.php';
 include __DIR__ . '/../middleware/messageHandler.php';
 include __DIR__ . '/../middleware/authCheck.php';
-include __DIR__ . '/../middleware/utils.php';
 
 // Fetch vacation requests for the logged-in user
 $stmt = $connection->prepare("SELECT id, employee_code, start_date, end_date, reason, status, submitted_date FROM requests WHERE employee_code = ?");

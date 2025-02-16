@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Εξυπηρετητής: 127.0.0.1
--- Χρόνος δημιουργίας: 13 Φεβ 2025 στις 16:25:34
+-- Χρόνος δημιουργίας: 16 Φεβ 2025 στις 17:28:23
 -- Έκδοση διακομιστή: 10.4.32-MariaDB
 -- Έκδοση PHP: 8.2.12
 
@@ -30,28 +30,26 @@ SET time_zone = "+00:00";
 CREATE TABLE `requests` (
   `id` int(11) NOT NULL,
   `employee_code` int(11) NOT NULL,
-  `full_name` varchar(100) NOT NULL,
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
-  `total_days` int(11) GENERATED ALWAYS AS (to_days(`end_date`) - to_days(`start_date`) + 1) STORED,
   `reason` text NOT NULL,
   `status` enum('pending','approved','rejected') NOT NULL,
-  `submitted_date` datetime DEFAULT current_timestamp(),
-  `manager_code` int(7) NOT NULL
+  `submitted_date` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Άδειασμα δεδομένων του πίνακα `requests`
 --
 
-INSERT INTO `requests` (`id`, `employee_code`, `full_name`, `start_date`, `end_date`, `reason`, `status`, `submitted_date`, `manager_code`) VALUES
-(1, 1111115, 'Alexandra Politou', '2025-06-10', '2025-06-20', 'Summer vacation', 'approved', '2025-02-13 15:50:38', 1111111),
-(2, 1111112, 'Katerina Haskou', '2025-04-15', '2025-04-22', 'Family visit', 'pending', '2025-02-13 15:50:38', 1111111),
-(3, 1111114, 'George Nasiopoulos', '2025-07-05', '2025-07-15', 'Trip abroad', 'rejected', '2025-02-13 15:50:38', 1111111),
-(4, 1111113, 'Katerina Lamprou', '2025-12-23', '2026-01-02', 'Christmas holidays', 'pending', '2025-02-13 15:50:38', 1111111),
-(6, 1111113, 'Katerina Lamprou', '2025-02-14', '2025-02-17', 'Romantic Trip', 'approved', '2025-02-13 15:50:38', 1111111),
-(12, 1111115, 'Alexandra Politou', '2025-02-24', '2025-02-28', 'Fishing Trip', 'rejected', '2025-02-13 14:57:29', 1111111),
-(13, 1111115, 'Alexandra Politou', '2025-03-10', '2025-03-14', 'Fishing Trip', 'pending', '2025-02-13 15:59:59', 1111111);
+INSERT INTO `requests` (`id`, `employee_code`, `start_date`, `end_date`, `reason`, `status`, `submitted_date`) VALUES
+(16, 1010103, '2024-06-01', '2024-06-07', 'Family vacation', 'pending', '2024-05-20 00:00:00'),
+(17, 1010104, '2024-07-15', '2024-07-20', 'Medical leave', 'pending', '2024-06-25 00:00:00'),
+(18, 1010105, '2024-08-10', '2024-08-15', 'Personal time off', 'pending', '2024-07-30 00:00:00'),
+(19, 1010106, '2024-09-05', '2024-09-12', 'Travel abroad', 'pending', '2024-08-22 00:00:00'),
+(20, 1010107, '2024-05-10', '2024-05-15', 'Family event', 'pending', '2024-04-30 00:00:00'),
+(21, 1010108, '2024-06-20', '2024-06-25', 'Conference attendance', 'pending', '2024-06-05 00:00:00'),
+(22, 1010109, '2024-07-01', '2024-07-10', 'Vacation trip', 'pending', '2024-06-10 00:00:00'),
+(23, 1010110, '2024-08-15', '2024-08-20', 'Wedding leave', 'pending', '2024-07-28 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -73,14 +71,16 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`employee_code`, `full_name`, `email`, `password`, `role`, `manager_code`) VALUES
-(1111111, 'Panagiwtis Kapsochas', 'panagiwtiskapsochas@gmail.com', '$2y$10$1vv8wO5JN5e6S9U0rf/qwO1X5dYorBiV0WkY1.U7moT0oHZ4MCpfK', 'manager', 1111111),
-(1111112, 'Katerina Haskou', 'katehaskou@gmail.com', '$2y$10$tM7JzNw/mJIvOLegNYs0u./wsl9I717573gUdAX338F.OHAVbSVO.', 'employee', 1111111),
-(1111113, 'Katerina Lamprou', 'katerinalamprou21@gmail.com', '$2y$10$QaRE7WMNQTnV7Uj3pXv/cOtlcUul5YaftzedQKNLH5Q8vfIJeI94e', 'employee', 1111111),
-(1111114, 'George Nasiopoulos', 'gnash92@gmail.com', '$2y$10$BGVRKq6ZzErDj9vNcyHn7O0bannBAn7q05vFv4KmEY15VWxOnuT9S', 'employee', 1111111),
-(1111115, 'Alexandra Politou', 'politoualexandra@gmail.com', '$2y$10$.Duxp/J1S3nuUKuxbr/fCeX2hY7lZ3H42zIu3Gt6Uyu7QYKVTVI.S', 'employee', 1111111),
-(1111116, 'Sotiris Kapsochas', 'sotkapsochas@gmail.com', '$2y$10$OZmKkK4.knOilJTt8WCJlOq1NsqSNyAKJfP/eB/6kJPx8ZZZrznOu', 'employee', 1111111),
-(1111117, 'Vagelis Mageiras', 'vagtax@gmail.com', '$2y$10$SBimQKHB6eZbR8z4XOODgOUQB.gRfio3eRAqVHscRouw6fvF/oQT.', 'manager', 1111117),
-(1111118, 'Nikos Melidoniotis', 'nikmelido@gmail.com', '$2y$10$yYaAIGyn1jRBpRCzta90K.GrqVnY61k7UZCuH8.DqhdjcULZrUH.S', 'employee', 1111117);
+(1010101, 'Alice Johnson', 'manager1@mail.com', '$2y$10$yNFjiX3YL.KHUBXFhitaGORRMCDra.Qd8jSlhrOWO1WC6THTEyD5S', 'manager', 1010101),
+(1010102, 'Bob Smith', 'manager2@mail.com', '$2y$10$6x6bLQnJO0my787Gtv80BeaeLXWqe248XuZgUfucUwQzW5XBuXoeW', 'manager', 1010102),
+(1010103, 'Charlie Davis', 'employee1@mail.com', '$2y$10$DUHCtMKHzqX3.LakR/k4TOCMBtcuKHvk8OxrWAgKTnvw5W4.MVtgG', 'employee', 1010101),
+(1010104, 'Diana Wilson', 'employee2@mail.com', '$2y$10$sKJyDYPMZUkujYm2WUaHSe93ebWrnMzuKCkHVs4bKbVl8GRsqiE.2', 'employee', 1010101),
+(1010105, 'Ethan Brown', 'employee3@mail.com', '$2y$10$52lN31bV/Zoj/VGlJRHb1uitZz0cjP14sTRJsA44rwaMdXLA052Hi', 'employee', 1010101),
+(1010106, 'Fiona Martinez', 'employee4@mail.com', '$2y$10$NenFaUyxSH7RWjCABwtjn.hx.UdtwSq1T8CF4mupSiTNHIiDRDcCa', 'employee', 1010101),
+(1010107, 'George White', 'employee5@mail.com', '$2y$10$3wWONAqYJ.HWnKQxn7cKm.zBnIFyQwZaiee25XZYmIaH.jr14pNBK', 'employee', 1010102),
+(1010108, 'Hannah Taylor', 'employee6@mail.com', '$2y$10$BQwQLzszC8qNMxTD4PjccuAwNC3Lr3LoLNKrDzCM2MhkfzMx.pSze', 'employee', 1010102),
+(1010109, 'Isaac Lee', 'employee7@mail.com', '$2y$10$n5PglVMU/jOopO/K1T8cDu.WMndl18UH9pymvOLHjuBdGqOB/bki.', 'employee', 1010102),
+(1010110, 'Julia Moore', 'employee8@mail.com', '$2y$10$i5z2YK4dLbsbeF.r0yCq8OR.0vQYp/kZgHqn5U/hOpxGT81nwNEAO', 'employee', 1010102);
 
 --
 -- Ευρετήρια για άχρηστους πίνακες
@@ -108,7 +108,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT για πίνακα `requests`
 --
 ALTER TABLE `requests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT για πίνακα `users`

@@ -1,8 +1,8 @@
 <?php
 include __DIR__ . '/../src/config.php';
+include __DIR__ . '/../src/utils.php';
 include __DIR__ . '/../middleware/messageHandler.php';
 include __DIR__ . '/../middleware/authCheck.php';
-include __DIR__ . '/../middleware/utils.php';
 
 // Get employee_code from URL
 $employee_code = $_GET['employee_code'] ?? null;
@@ -32,7 +32,12 @@ $employee = $employee_result->fetch_assoc();
 $employee_full_name = $employee['full_name'] ?? 'Unknown Employee';
 
 // Fetch vacation requests for this employee (who is managed by the logged-in manager)
-$stmt = $connection->prepare("SELECT id, start_date, end_date, reason, status FROM requests WHERE employee_code = ? AND manager_code = ?");
+$stmt = $connection->prepare("
+    SELECT r.id, r.start_date, r.end_date, r.reason, r.status
+    FROM requests r
+    JOIN users u ON r.employee_code = u.employee_code
+    WHERE r.employee_code = ? AND u.manager_code = ?
+");
 $stmt->bind_param("ii", $employee_code, $manager_code);
 $stmt->execute();
 $result = $stmt->get_result();
