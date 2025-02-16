@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    container_name: vacation-portal-app
+    volumes:
+      - ./public:/var/www/html/public
+      - ./middleware:/var/www/html/middleware
+      - ./src:/var/www/html/src
+    ports:
+      - "8000:80"
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    container_name: vacation-portal-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: vacation_db
+    volumes:
+      - ./database/vacation_db.sql:/docker-entrypoint-initdb.d/dump.sql
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+volumes:
+  db_data:
