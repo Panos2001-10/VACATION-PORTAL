@@ -9,6 +9,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST["email"]);
     $password = trim($_POST["password"]);
 
+    // Check if the new email already exists for another user
+    $stmt = $connection->prepare("SELECT employee_code FROM users WHERE email = ? AND employee_code != ?");
+    $stmt->bind_param("si", $email, $employeeCode);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows > 0) {
+        addMessage("error", "Email is already in use by another user.");
+        header("Location: manageUsersForm.php");
+        exit();
+    }
+
+    $stmt->close();
+
     // Prepare the update query
     if (!empty($password)) {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
@@ -27,6 +41,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         addMessage("error", "Error updating record: " . $connection->error);
     }
 } else {
-    addMessage("error", "Invalid request");
+    addMessage("error", "Invalid request.");
+    header("Location: manageUsersForm.php");
+    exit();
 }
 ?>
