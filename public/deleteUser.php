@@ -1,5 +1,6 @@
 <?php
 include __DIR__ . '/../src/config.php';
+include __DIR__ . '/../src/utils.php';
 include __DIR__ . '/../middleware/messageHandler.php';
 include __DIR__ . '/../middleware/authCheck.php';
 
@@ -11,6 +12,12 @@ if (!isset($_GET['id']) || !ctype_digit($_GET['id'])) {
 }
 
 $employeeCode = (int) $_GET['id']; // Cast to integer for safety
+
+if (!checkManagerAuthorization($connection, $employeeCode)) {
+    addMessage("error", "You are not authorized to edit this employee's details.");
+    header("Location: manageUsersForm.php");
+    exit();
+}
 
 // Prepare and execute the delete query
 $stmt = $connection->prepare("DELETE FROM users WHERE employee_code = ?");

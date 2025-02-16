@@ -42,10 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 exit();
             }
         } else {
-            addMessage("error", "Incorrect password.");
+            addMessage("error", "Incorrect credentials.");
         }
     } else {
-        addMessage("error", "No account found with that email address.");
+        addMessage("error", "Incorrect credentials.");
     }
     header("Location: index.php");
     exit();

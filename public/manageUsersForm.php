@@ -1,5 +1,6 @@
 <?php
 include __DIR__ . '/../src/config.php';
+include __DIR__ . '/../src/utils.php';
 include __DIR__ . '/../middleware/messageHandler.php';
 include __DIR__ . '/../middleware/authCheck.php';
 
@@ -56,7 +57,7 @@ $result = $stmt->get_result();
     <br>
     <footer>
         <div class="logout">
-            <p>You are logged in as: <?php echo $_SESSION['user_full_name'] . " (" . $_SESSION['user_role'] . ")" ?></p>
+            <p><?php echo getLoggedInUserInfo(); ?></p>
             <a href="logout.php">Log-Out</a>
         </div>
     </footer>

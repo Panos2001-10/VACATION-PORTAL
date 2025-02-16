@@ -1,5 +1,6 @@
 <?php
 include __DIR__ . '/../src/config.php';
+include __DIR__ . '/../src/utils.php';
 include __DIR__ . '/../middleware/messageHandler.php';
 include __DIR__ . '/../middleware/authCheck.php';
 
@@ -8,6 +9,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fullname = trim($_POST["fullname"]);
     $email = trim($_POST["email"]);
     $password = trim($_POST["password"]);
+
+    if (!checkManagerAuthorization($connection, $employeeCode)) {
+        addMessage("error", "You are not authorized to edit this employee's details.");
+        header("Location: manageUsersForm.php");
+        exit();
+    }
 
     // Check if the new email already exists for another user
     $stmt = $connection->prepare("SELECT employee_code FROM users WHERE email = ? AND employee_code != ?");
@@ -38,7 +45,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: manageUsersForm.php");
         exit();
     } else {
-        addMessage("error", "Error updating record: " . $connection->error);
+        header("Location: manageUsers.php");  // Redirect to manageUsers.php
+        exit();  // Always call exit after header to prevent further code execution
     }
 } else {
     addMessage("error", "Invalid request.");
