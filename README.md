@@ -57,7 +57,7 @@ To set up the project locally, follow the steps below:
     This will build the Docker images and start both the application and the database services.
 
 3. Access the application:
-    Open your browser and visit `http://localhost:8000` to use the application.
+    Open your browser and visit `http://localhost:8000` to use the application(every user currently has the same password: 123456).
 
 4. Set up the database:
     The database is automatically set up using the `vacation_db.sql` file provided. It will create necessary tables such as `users`, `requests`, and others.
