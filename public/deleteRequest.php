@@ -12,6 +12,12 @@ if (!isset($_GET['id']) || !ctype_digit($_GET['id'])) {
 
 $requestId = (int) $_GET['id'];
 
+if (!isset($_SESSION['user_employee_code'])) {
+    addMessage("error", "Session error: Employee code is missing.");
+    header("Location: vacationRequestsForm.php");
+    exit();
+}
+
 // Check if the request exists and is still pending
 $stmt = $connection->prepare("SELECT status FROM requests WHERE id = ? AND employee_code = ?");
 $stmt->bind_param("ii", $requestId, $_SESSION['user_employee_code']);
