@@ -26,7 +26,7 @@ This project implements a simple vacation portal system using PHP, MySQL, and va
 
 
 ## Technologies
-- **Frontend**: HTML, CSS (vanilla or lightweight framework)
+- **Frontend**: HTML, CSS
 - **Backend**: PHP
 - **Database**: MySQL
 - **Server**: Apache (via Docker)
