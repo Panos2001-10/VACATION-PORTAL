@@ -7,7 +7,7 @@ RUN docker-php-ext-install mysqli
 # Enable Apache's mod_rewrite module, which is required for URL rewriting (common for routing and pretty URLs)
 RUN a2enmod rewrite
 
-# Set the Apache document root to the 'public' directory, which is where your app's public-facing files should reside
+# Set the Apache document root to the 'public' directory
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 
 # Update Apache's default virtual host configuration to use the new document root path

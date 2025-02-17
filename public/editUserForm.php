@@ -14,6 +14,13 @@ if (!isset($_GET['id'])) {
 // Get the employee ID from the URL parameter
 $employeeCode = $_GET['id'];
 
+// Ensure the logged-in manager has permission to edit this employee
+if (!checkManagerAuthorization($connection, $employeeCode)) {
+    addMessage("error", "You are not authorized to edit this employee's details.");
+    header("Location: manageUsersForm.php"); // Redirect back to user management page
+    exit(); // Stop script execution
+}
+
 // Prepare SQL query to fetch employee details based on the provided ID
 $stmt = $connection->prepare("SELECT employee_code, full_name, email, password FROM users WHERE employee_code = ?");
 $stmt->bind_param("i", $employeeCode); // Bind employee ID as an integer
