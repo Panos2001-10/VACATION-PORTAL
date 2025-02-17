@@ -1,28 +1,32 @@
 version: '3.8'
+
 services:
+  # The 'app' service represents the web application container
   app:
-    build: .
-    container_name: vacation-portal-app
+    build: .  # Build the app container from the current directory (Dockerfile must be in the root)
+    container_name: vacation-portal-app  # Name the container for easier identification
     volumes:
-      - ./public:/var/www/html/public
-      - ./middleware:/var/www/html/middleware
-      - ./src:/var/www/html/src
+      - ./public:/var/www/html/public  # Mount the 'public' directory from the host to the container
+      - ./middleware:/var/www/html/middleware  # Mount the 'middleware' directory from the host to the container
+      - ./src:/var/www/html/src  # Mount the 'src' directory from the host to the container
     ports:
-      - "8000:80"
+      - "8000:80"  # Map port 80 in the container to port 8000 on the host for accessing the app via localhost:8000
     depends_on:
-      - db
+      - db  # Ensure that the 'db' service (MySQL) starts before the 'app' service
 
+  # The 'db' service represents the MySQL database container
   db:
-    image: mysql:5.7
-    container_name: vacation-portal-db
+    image: mysql:5.7  # Use the official MySQL 5.7 image from Docker Hub
+    container_name: vacation-portal-db  # Name the container for easier identification
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: vacation_db
+      MYSQL_ROOT_PASSWORD: rootpassword  # Set the root password for MySQL
+      MYSQL_DATABASE: vacation_db  # Create a database named 'vacation_db' on startup
     volumes:
-      - ./database/vacation_db.sql:/docker-entrypoint-initdb.d/dump.sql
-      - db_data:/var/lib/mysql
+      - ./database/vacation_db.sql:/docker-entrypoint-initdb.d/dump.sql  # Initialize the database with the SQL file on startup
+      - db_data:/var/lib/mysql  # Persist MySQL data in a Docker volume, so it isn't lost when the container is removed
     ports:
-      - "3306:3306"
+      - "3306:3306"  # Expose MySQL on port 3306 of the host for external access
 
+# Define named volumes for persistent storage
 volumes:
-  db_data:
+  db_data:  # A volume for MySQL data to persist across container restarts
