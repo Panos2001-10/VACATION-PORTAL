@@ -9,7 +9,7 @@ class MessageHandler
      * @param string $type The type of message (e.g., 'error' or 'success').
      * @param string $text The message text.
      */
-    public static function addMessage(string $type, string $text)
+    public static function addMessage(string $type, string $text): void
     {
         // Ensure the messages array exists
         if (!isset($_SESSION['messages'])) {
@@ -37,7 +37,7 @@ class MessageHandler
      * Display messages stored in the session.
      * Messages are wrapped in a paragraph element with a CSS class based on their type.
      */
-    public static function displayMessages()
+    public static function displayMessages(): void
     {
         $messages = self::getMessages();
         foreach ($messages as $message) {
