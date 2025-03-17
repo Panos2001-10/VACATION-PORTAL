@@ -4,8 +4,8 @@ services:
     container_name: vacation-portal-app
     volumes:
       - ./public:/var/www/html/public
-      - ./middleware:/var/www/html/middleware
       - ./src:/var/www/html/src
+      - ./vendor:/var/www/html/vendor
     ports:
       - "8000:80"
     depends_on:
