@@ -4,8 +4,8 @@ session_start();
 require_once __DIR__ . '/../src/config.php';
 require_once __DIR__ . '/../src/classes/Database.php';
 require_once __DIR__ . '/../src/utils.php';
-require_once __DIR__ . '/../middleware/messageHandler.php';
-require_once __DIR__ . '/../middleware/authCheck.php';
+require_once __DIR__ . '/../middleware/MessageHandler.php';
+require_once __DIR__ . '/../middleware/AuthCheck.php';
 
 use App\Database;
 

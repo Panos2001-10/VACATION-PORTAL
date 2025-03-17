@@ -2,8 +2,8 @@
 // Include necessary files for database connection, utility functions, and authentication
 include __DIR__ . '/../src/config.php'; // Database connection settings
 include __DIR__ . '/../src/utils.php'; // Utility functions (e.g., authorization check)
-include __DIR__ . '/../middleware/messageHandler.php'; // Handles success/error messages
-include __DIR__ . '/../middleware/authCheck.php'; // Ensures the user is authenticated
+include __DIR__ . '/../middleware/MessageHandler.php'; // Handles success/error messages
+include __DIR__ . '/../middleware/AuthCheck.php'; // Ensures the user is authenticated
 
 // Check if the form is submitted via POST request
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

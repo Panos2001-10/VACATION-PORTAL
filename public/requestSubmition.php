@@ -1,8 +1,8 @@
 <?php
 // Include necessary files for database connection, authentication check, and message handling
 include __DIR__ . '/../src/config.php';  // Database connection configuration
-include __DIR__ . '/../middleware/authCheck.php';  // To ensure the user is logged in
-include __DIR__ . '/../middleware/messageHandler.php';  // For handling success/error messages
+include __DIR__ . '/../middleware/AuthCheck.php';  // To ensure the user is logged in
+include __DIR__ . '/../middleware/MessageHandler.php';  // For handling success/error messages
 
 // Ensure the user is logged in by checking session variables
 if (!isset($_SESSION['user_employee_code']) || !isset($_SESSION['user_full_name']) || !isset($_SESSION['user_manager_code'])) {

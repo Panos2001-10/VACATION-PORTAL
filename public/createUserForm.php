@@ -2,8 +2,8 @@
 // Include necessary files for database connection, utility functions, and authentication
 include __DIR__ . '/../src/config.php'; // Database connection settings
 include __DIR__ . '/../src/utils.php'; // Utility functions
-include __DIR__ . '/../middleware/messageHandler.php'; // Handles success/error messages
-include __DIR__ . '/../middleware/authCheck.php'; // Ensures the user is authenticated
+include __DIR__ . '/../middleware/MessageHandler.php'; // Handles success/error messages
+include __DIR__ . '/../middleware/AuthCheck.php'; // Ensures the user is authenticated
 ?>
 
 <!DOCTYPE html>
