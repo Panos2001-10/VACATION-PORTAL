@@ -1,19 +1,15 @@
 <?php
-
 session_start();
 
+require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../src/config.php';
-require_once __DIR__ . '/../src/classes/Database.php';
-require_once __DIR__ . '/../src/classes/User.php';
-require_once __DIR__ . '/../middleware/MessageHandler.php';
-require_once __DIR__ . '/../src/utils.php';
 
+use App\AuthService;
 use App\Database;
-use App\User;
 use App\MessageHandler;
+use App\User;
 
-$database   = new Database(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-$connection = $database->getConnection();
+$database = new Database();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Capture user input
@@ -26,9 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    $user = User::findByEmail($connection, $email);
+    $user = User::findByEmail($database, $_POST['email'] ?? '');
 
-    if ($user && $user->verifyPassword($password)) {
+    if ($user && AuthService::verifyPassword($user, $_POST['password'] ?? '')) {
 
         $_SESSION['user_manager_code']  = $user->getManagerCode();
         $_SESSION['user_employee_code'] = $user->getEmployeeCode();

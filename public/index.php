@@ -1,8 +1,9 @@
 <?php
-// Include required files
-include __DIR__ . '/../src/config.php'; // Database connection
-include __DIR__ . '/../middleware/messageHandler.php'; // Handles notifications/messages
-include __DIR__ . '/../middleware/authCheck.php'; // Ensures authentication where required
+
+use App\MessageHandler;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +12,6 @@ include __DIR__ . '/../middleware/authCheck.php'; // Ensures authentication wher
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log-in/Register - Vacation Portal</title>
-    
     <style>
         <?php include __DIR__ . '/../public/style.css'; // Include external CSS file ?>
     </style>
@@ -44,7 +44,7 @@ include __DIR__ . '/../middleware/authCheck.php'; // Ensures authentication wher
 
     <!-- Display Success/Error Messages -->
     <div class="messages">
-        <?php displayMessages(); ?>
+        <?php MessageHandler::displayMessages(); ?>
     </div>
 
 </body>
