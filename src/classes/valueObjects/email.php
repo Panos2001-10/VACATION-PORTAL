@@ -1,8 +1,7 @@
 <?php
 
-namespace App\valueObjects;
+namespace App\classes\valueObjects;
 
-use App\messageHandler;
 use InvalidArgumentException;
 
 class email {

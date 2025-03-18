@@ -4,22 +4,25 @@ session_start();
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../src/config.php';
 
-use App\authService;
-use App\database;
-use App\messageHandler;
-use App\user;
-use App\valueObjects\email;
+use App\classes\authService;
+use App\classes\database;
+use App\classes\messageHandler;
+use App\classes\user;
+use App\classes\valueObjects\email;
+use App\dto\LoginRequestDTO;
+
 
 $database = new database();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Capture user input.
-    $email    = $_POST['email'] ?? '';
-    $password = $_POST['password'] ?? '';
+    $loginRequest = new LoginRequestDTO(
+        $_POST['email'] ?? '',
+        $_POST['password'] ?? ''
+    );
 
     // Validate the email format.
     try {
-        $emailObject = new Email($email);
+        $emailObject = new Email($loginRequest->getEmail());
     } catch (InvalidArgumentException $e) {
         messageHandler::addMessage('error', 'Please enter a valid email address.');
         header("Location: index.php");
@@ -34,9 +37,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $whereType = 's'; // For email (string).
 
     // Use the generic findBy method to fetch the user.
-    $user = user::findBy($database, $columns, $table, $where, $whereType, $email);
+    $user = user::findBy($database, $columns, $table, $where, $whereType, $loginRequest->getEmail());
 
-    if ($user && authService::verifyPassword($password, $user->getHashedPassword() )) {
+    if ($user && authService::verifyPassword($loginRequest->getPassword(), $user->getHashedPassword() )) {
         $_SESSION['user_manager_code']  = $user->getManagerCode();
         $_SESSION['user_employee_code'] = $user->getEmployeeCode();
         $_SESSION['user_full_name']     = $user->getFullName();
