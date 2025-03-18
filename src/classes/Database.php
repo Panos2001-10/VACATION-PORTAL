@@ -20,32 +20,7 @@ class Database
                 die("Database connection failed: " . $this->connection->connect_error);
             }
         }
-
         return $this->connection;
-    }
-
-    /**
-     * Build the parameter types string dynamically based on each parameter's type.
-     *
-     * @param array $params
-     * @return string
-     */
-    private function buildParamTypes(array $params): string
-    {
-        $types = '';
-        foreach ($params as $param) {
-            if (is_int($param)) {
-                $types .= 'i';
-            } elseif (is_float($param)) {
-                $types .= 'd';
-            } elseif (is_string($param)) {
-                $types .= 's';
-            } else {
-                // Fallback to string if type detection fails
-                $types .= 's';
-            }
-        }
-        return $types;
     }
 
     /**
@@ -53,11 +28,12 @@ class Database
      *
      * @param string $sql    The SQL statement with placeholders.
      * @param array  $params The parameters to bind to the SQL statement.
+     * @param string $types  The types of the parameters (e.g., "s", "i", "d").
      *
      * @return array|null
      * @throws \Exception If statement preparation fails.
      */
-    public function fetchRow(string $sql, array $params = []): ?array
+    public function fetchRow(string $sql, array $params = [], string $types = ''): ?array
     {
         $stmt = $this->getConnection()->prepare($sql);
         if (!$stmt) {
@@ -65,7 +41,10 @@ class Database
         }
 
         if (!empty($params)) {
-            $types = $this->buildParamTypes($params);
+            // If no types are provided, assume all parameters are strings.
+            if (empty($types)) {
+                $types = str_repeat('s', count($params));
+            }
             $stmt->bind_param($types, ...$params);
         }
 
@@ -82,11 +61,12 @@ class Database
      *
      * @param string $sql    The SQL statement with placeholders.
      * @param array  $params The parameters to bind to the SQL statement.
+     * @param string $types  The types of the parameters.
      *
      * @return array
      * @throws \Exception If statement preparation fails.
      */
-    public function fetchAll(string $sql, array $params = []): array
+    public function fetchAll(string $sql, array $params = [], string $types = ''): array
     {
         $stmt = $this->getConnection()->prepare($sql);
         if (!$stmt) {
@@ -94,7 +74,9 @@ class Database
         }
 
         if (!empty($params)) {
-            $types = $this->buildParamTypes($params);
+            if (empty($types)) {
+                $types = str_repeat('s', count($params));
+            }
             $stmt->bind_param($types, ...$params);
         }
 

@@ -11,7 +11,8 @@ class User
     private $hashedPassword;
     private $role;
 
-    public function __construct( $managerCode, $employeeCode, $fullName, $email, $hashedPassword, $role ) {
+    public function __construct($managerCode, $employeeCode, $fullName, $email, $hashedPassword, $role)
+    {
         $this->managerCode    = $managerCode;
         $this->employeeCode   = $employeeCode;
         $this->fullName       = $fullName;
@@ -21,15 +22,27 @@ class User
     }
 
     /**
-     * Find user by email using the Database class.
+     * Generic method to find a user by a specific condition.
+     *
+     * @param Database $db         The database instance.
+     * @param array    $columns    Array of columns to select.
+     * @param string   $table      The table name.
+     * @param string   $where      The WHERE clause (e.g., "email = ?").
+     * @param string   $whereType  The type for the where parameter (e.g., "s" for string).
+     * @param mixed    $whereValue The value for the where clause.
+     *
+     * @return User|null           Returns a User object if found, otherwise null.
      */
-    public static function findByEmail(Database $db, string $email): ?User
+    public static function findBy(Database $db, array $columns, string $table, string $where, string $whereType, $whereValue): ?User
     {
-        $sql = "SELECT manager_code, employee_code, full_name, email, password, role
-                FROM users
-                WHERE email = ?";
+        // Build a comma-separated list of columns.
+        $columnsList = implode(', ', $columns);
 
-        $row = $db->fetchRow($sql, [$email]);
+        // Construct the SQL query dynamically.
+        $sql = "SELECT $columnsList FROM $table WHERE $where";
+
+        // Execute the query using the Database class.
+        $row = $db->fetchRow($sql, [$whereValue], $whereType);
 
         if ($row) {
             return new User(
@@ -41,10 +54,10 @@ class User
                 $row['role']
             );
         }
-
         return null;
     }
 
+    // Getters for properties.
     public function getManagerCode() {
         return $this->managerCode;
     }
@@ -60,8 +73,7 @@ class User
     public function getRole() {
         return $this->role;
     }
-    public function getHashedPassword(): string
-    {
+    public function getHashedPassword(): string {
         return $this->hashedPassword;
     }
 }

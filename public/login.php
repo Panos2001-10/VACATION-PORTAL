@@ -8,26 +8,35 @@ use App\AuthService;
 use App\Database;
 use App\MessageHandler;
 use App\User;
+use App\valueObjects\email;
 
 $database = new Database();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Capture user input
-    $email    = $_POST['email']    ?? '';
+    // Capture user input.
+    $email    = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
 
+    // Validate the email format.
     try {
-        $emailObject = new \App\ValueObjects\Email($email);
-    } catch (\InvalidArgumentException $e) {
+        $emailObject = new Email($email);
+    } catch (InvalidArgumentException $e) {
         MessageHandler::addMessage('error', 'Please enter a valid email address.');
         header("Location: index.php");
         exit();
     }
 
-    $user = User::findByEmail($database, $_POST['email'] ?? '');
 
-    if ($user && AuthService::verifyPassword($_POST['password'], $user->getHashedPassword() ?? '')) {
+    // Define the columns and condition for the query.
+    $columns = ['manager_code', 'employee_code', 'full_name', 'email', 'password', 'role'];
+    $table = 'users';
+    $where = 'email = ?';
+    $whereType = 's'; // For email (string).
 
+    // Use the generic findBy method to fetch the user.
+    $user = User::findBy($database, $columns, $table, $where, $whereType, $email);
+
+    if ($user && AuthService::verifyPassword($password, $user->getHashedPassword() )) {
         $_SESSION['user_manager_code']  = $user->getManagerCode();
         $_SESSION['user_employee_code'] = $user->getEmployeeCode();
         $_SESSION['user_full_name']     = $user->getFullName();
@@ -41,9 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: vacationRequestsForm.php");
             exit();
         }
-
     } else {
-        // Invalid credentials
+        // Invalid credentials.
         MessageHandler::addMessage('error', 'Incorrect credentials.');
         header("Location: index.php");
         exit();

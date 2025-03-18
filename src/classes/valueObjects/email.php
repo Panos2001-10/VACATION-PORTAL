@@ -3,13 +3,14 @@
 namespace App\valueObjects;
 
 use App\MessageHandler;
+use InvalidArgumentException;
 
 class email {
     private string $email;
 
     public function __construct(string $email) {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            throw new \InvalidArgumentException();
+            throw new InvalidArgumentException();
         }
         $this->email = $email;
     }
