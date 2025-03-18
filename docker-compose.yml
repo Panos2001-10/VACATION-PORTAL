@@ -6,6 +6,7 @@ services:
       - ./public:/var/www/html/public
       - ./src:/var/www/html/src
       - ./vendor:/var/www/html/vendor
+      - ./.env:/var/www/html/.env
     ports:
       - "8000:80"
     depends_on:
