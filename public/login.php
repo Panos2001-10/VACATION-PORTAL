@@ -16,7 +16,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email    = $_POST['email']    ?? '';
     $password = $_POST['password'] ?? '';
 
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    try {
+        $emailObject = new \App\ValueObjects\Email($email);
+    } catch (\InvalidArgumentException $e) {
         MessageHandler::addMessage('error', 'Please enter a valid email address.');
         header("Location: index.php");
         exit();
@@ -24,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $user = User::findByEmail($database, $_POST['email'] ?? '');
 
-    if ($user && AuthService::verifyPassword($user, $_POST['password'] ?? '')) {
+    if ($user && AuthService::verifyPassword($_POST['password'], $user->getHashedPassword() ?? '')) {
 
         $_SESSION['user_manager_code']  = $user->getManagerCode();
         $_SESSION['user_employee_code'] = $user->getEmployeeCode();
