@@ -1,8 +1,8 @@
 <?php
 // Include necessary files for database connection, message handling, and authentication checks
 include __DIR__ . '/../src/config.php';  // For database connection
-include __DIR__ . '/../middleware/MessageHandler.php';  // For adding messages
-include __DIR__ . '/../middleware/AuthCheck.php';  // For authentication checks
+include __DIR__ . '/../middleware/messageHandler.php';  // For adding messages
+include __DIR__ . '/../middleware/authCheck.php';  // For authentication checks
 
 // Retrieve request ID and action from the URL (query parameters)
 $request_id = $_GET['id'] ?? null;  // ID of the request

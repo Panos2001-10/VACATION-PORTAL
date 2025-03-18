@@ -1,6 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
-use App\User;
+use App\user;
 
 class UserTest extends TestCase
 {
@@ -8,7 +8,7 @@ class UserTest extends TestCase
     {
         $rawPassword = 'secret';
         $hashedPassword = password_hash($rawPassword, PASSWORD_DEFAULT);
-        $user = new User(1, 2, 'Test User', 'test@example.com', $hashedPassword, 'employee');
+        $user = new user(1, 2, 'Test user', 'test@example.com', $hashedPassword, 'employee');
 
         $this->assertTrue($user->verifyPassword('secret'));
 

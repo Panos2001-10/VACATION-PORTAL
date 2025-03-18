@@ -1,9 +1,9 @@
 <?php
 // Include necessary files for database connection, utility functions, and authentication
-include __DIR__ . '/../src/config.php'; // Database connection settings
+include __DIR__ . '/../src/config.php'; // database connection settings
 include __DIR__ . '/../src/utils.php'; // Utility functions (e.g., authorization check)
-include __DIR__ . '/../middleware/MessageHandler.php'; // Handles success/error messages
-include __DIR__ . '/../middleware/AuthCheck.php'; // Ensures the user is authenticated
+include __DIR__ . '/../middleware/messageHandler.php'; // Handles success/error messages
+include __DIR__ . '/../middleware/authCheck.php'; // Ensures the user is authenticated
 
 // Validate and sanitize the user ID from the URL parameter
 if (!isset($_GET['id']) || !ctype_digit($_GET['id'])) { 
@@ -29,7 +29,7 @@ $stmt->bind_param("i", $employeeCode); // Bind the employee ID as an integer par
 
 // Execute the query and check if the deletion was successful
 if ($stmt->execute()) {
-    addMessage("success", "User deleted successfully."); // Success message
+    addMessage("success", "user deleted successfully."); // Success message
 } else {
     addMessage("error", "Error deleting user: " . $stmt->error); // Error message with details
 }

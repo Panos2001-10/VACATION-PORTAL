@@ -2,7 +2,7 @@
 
 namespace App\valueObjects;
 
-use App\MessageHandler;
+use App\messageHandler;
 use InvalidArgumentException;
 
 class email {

@@ -2,7 +2,7 @@
 
 namespace App;
 
-class User
+class user
 {
     private $managerCode;
     private $employeeCode;
@@ -24,16 +24,16 @@ class User
     /**
      * Generic method to find a user by a specific condition.
      *
-     * @param Database $db         The database instance.
+     * @param database $db         The database instance.
      * @param array    $columns    Array of columns to select.
      * @param string   $table      The table name.
      * @param string   $where      The WHERE clause (e.g., "email = ?").
      * @param string   $whereType  The type for the where parameter (e.g., "s" for string).
      * @param mixed    $whereValue The value for the where clause.
      *
-     * @return User|null           Returns a User object if found, otherwise null.
+     * @return user|null           Returns a user object if found, otherwise null.
      */
-    public static function findBy(Database $db, array $columns, string $table, string $where, string $whereType, $whereValue): ?User
+    public static function findBy(database $db, array $columns, string $table, string $where, string $whereType, $whereValue): ?user
     {
         // Build a comma-separated list of columns.
         $columnsList = implode(', ', $columns);
@@ -41,11 +41,11 @@ class User
         // Construct the SQL query dynamically.
         $sql = "SELECT $columnsList FROM $table WHERE $where";
 
-        // Execute the query using the Database class.
+        // Execute the query using the database class.
         $row = $db->fetchRow($sql, [$whereValue], $whereType);
 
         if ($row) {
-            return new User(
+            return new user(
                 $row['manager_code'],
                 $row['employee_code'],
                 $row['full_name'],

@@ -2,7 +2,7 @@
 
 namespace App;
 
-class Database
+class database
 {
     private ?\mysqli $connection = null;
 
@@ -17,7 +17,7 @@ class Database
             $this->connection = new \mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
             if ($this->connection->connect_error) {
-                die("Database connection failed: " . $this->connection->connect_error);
+                die("database connection failed: " . $this->connection->connect_error);
             }
         }
         return $this->connection;

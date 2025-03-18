@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-use App\MessageHandler;
+use App\messageHandler;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -45,7 +45,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
     <!-- Display Success/Error Messages -->
     <div class="messages">
-        <?php MessageHandler::displayMessages(); ?>
+        <?php messageHandler::displayMessages(); ?>
     </div>
 
 </body>

@@ -2,14 +2,14 @@
 session_start();
 
 require_once __DIR__ . '/../src/config.php';
-require_once __DIR__ . '/../src/classes/Database.php';
+require_once __DIR__ . '/../src/classes/database.php';
 require_once __DIR__ . '/../src/utils.php';
-require_once __DIR__ . '/../src/MessageHandler.php';
-require_once __DIR__ . '/../src/AuthCheck.php';
+require_once __DIR__ . '/../src/messageHandler.php';
+require_once __DIR__ . '/../src/authCheck.php';
 
-use App\Database;
+use App\database;
 
-$database   = new Database();
+$database   = new database();
 $connection = $database->getConnection();
 
 $managerCode = $_SESSION['user_employee_code'];

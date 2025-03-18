@@ -2,7 +2,7 @@
 
 namespace App;
 
-class MessageHandler
+class messageHandler
 {
     /**
      * Add a message to the session.

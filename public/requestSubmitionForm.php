@@ -1,9 +1,9 @@
 <?php
 // Include necessary files for database configuration, utility functions, authentication check, and message handling
-include __DIR__ . '/../src/config.php';  // Database connection
+include __DIR__ . '/../src/config.php';  // database connection
 include __DIR__ . '/../src/utils.php';   // Utility functions (e.g., for calculating weekdays)
-include __DIR__ . '/../middleware/AuthCheck.php';  // To ensure the user is authenticated
-include __DIR__ . '/../middleware/MessageHandler.php';  // For handling and displaying messages
+include __DIR__ . '/../middleware/authCheck.php';  // To ensure the user is authenticated
+include __DIR__ . '/../middleware/messageHandler.php';  // For handling and displaying messages
 ?>
 
 <!DOCTYPE html>

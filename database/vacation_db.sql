@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
 --
--- Host: localhost    Database: vacation_db
+-- Host: localhost    database: vacation_db
 -- ------------------------------------------------------
 -- Server version	5.7.44
 

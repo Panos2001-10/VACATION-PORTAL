@@ -4,13 +4,13 @@ session_start();
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../src/config.php';
 
-use App\AuthService;
-use App\Database;
-use App\MessageHandler;
-use App\User;
+use App\authService;
+use App\database;
+use App\messageHandler;
+use App\user;
 use App\valueObjects\email;
 
-$database = new Database();
+$database = new database();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Capture user input.
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $emailObject = new Email($email);
     } catch (InvalidArgumentException $e) {
-        MessageHandler::addMessage('error', 'Please enter a valid email address.');
+        messageHandler::addMessage('error', 'Please enter a valid email address.');
         header("Location: index.php");
         exit();
     }
@@ -34,9 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $whereType = 's'; // For email (string).
 
     // Use the generic findBy method to fetch the user.
-    $user = User::findBy($database, $columns, $table, $where, $whereType, $email);
+    $user = user::findBy($database, $columns, $table, $where, $whereType, $email);
 
-    if ($user && AuthService::verifyPassword($password, $user->getHashedPassword() )) {
+    if ($user && authService::verifyPassword($password, $user->getHashedPassword() )) {
         $_SESSION['user_manager_code']  = $user->getManagerCode();
         $_SESSION['user_employee_code'] = $user->getEmployeeCode();
         $_SESSION['user_full_name']     = $user->getFullName();
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } else {
         // Invalid credentials.
-        MessageHandler::addMessage('error', 'Incorrect credentials.');
+        messageHandler::addMessage('error', 'Incorrect credentials.');
         header("Location: index.php");
         exit();
     }

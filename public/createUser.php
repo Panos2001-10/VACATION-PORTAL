@@ -1,16 +1,16 @@
 <?php
 // Include necessary files for database connection, authentication, and message handling
-include __DIR__ . '/../src/config.php'; // Database connection settings
-include __DIR__ . '/../middleware/MessageHandler.php'; // Handles success/error messages
-include __DIR__ . '/../middleware/AuthCheck.php'; // Ensures the user is authenticated
+include __DIR__ . '/../src/config.php'; // database connection settings
+include __DIR__ . '/../middleware/messageHandler.php'; // Handles success/error messages
+include __DIR__ . '/../middleware/authCheck.php'; // Ensures the user is authenticated
 
 // Check if the request method is POST (form submission)
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get user input from the form
-    $fullname = $_POST['fullname']; // User's full name
+    $fullname = $_POST['fullname']; // user's full name
     $email = $_POST['email']; // Email address
     $employeeCode = $_POST['employee_code']; // Employee code (must be 7 digits)
-    $password = $_POST['password']; // User's password
+    $password = $_POST['password']; // user's password
     $role = $_POST['role']; // Role (manager or employee)
 
     /** 

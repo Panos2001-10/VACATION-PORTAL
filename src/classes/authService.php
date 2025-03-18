@@ -2,7 +2,7 @@
 
 namespace App;
 
-class AuthService
+class authService
 {
     public static function verifyPassword(string $rawPassword , string $hashedPassword): bool
     {

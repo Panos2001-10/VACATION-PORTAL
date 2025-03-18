@@ -2,7 +2,7 @@
 
 namespace App;
 
-class AuthCheck
+class authCheck
 {
     public static function ensureAuthenticated(): void
     {

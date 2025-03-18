@@ -1,9 +1,9 @@
 <?php
 // Include necessary files for database connection, utility functions, and authentication
-include __DIR__ . '/../src/config.php'; // Database connection settings
+include __DIR__ . '/../src/config.php'; // database connection settings
 include __DIR__ . '/../src/utils.php'; // Utility functions
-include __DIR__ . '/../middleware/MessageHandler.php'; // Handles success/error messages
-include __DIR__ . '/../middleware/AuthCheck.php'; // Ensures user is authenticated before accessing this page
+include __DIR__ . '/../middleware/messageHandler.php'; // Handles success/error messages
+include __DIR__ . '/../middleware/authCheck.php'; // Ensures user is authenticated before accessing this page
 
 // Check if an employee ID is provided in the URL
 if (!isset($_GET['id'])) {

@@ -1,9 +1,9 @@
 <?php
 // Include necessary files: configuration, utility functions, message handling, and authentication check
-include __DIR__ . '/../src/config.php';  // Database connection
+include __DIR__ . '/../src/config.php';  // database connection
 include __DIR__ . '/../src/utils.php';   // Utility functions (e.g., countWeekdays)
-include __DIR__ . '/../middleware/MessageHandler.php';  // For handling and displaying messages
-include __DIR__ . '/../middleware/AuthCheck.php';  // To ensure the user is authenticated
+include __DIR__ . '/../middleware/messageHandler.php';  // For handling and displaying messages
+include __DIR__ . '/../middleware/authCheck.php';  // To ensure the user is authenticated
 
 // Fetch vacation requests for the logged-in user based on their employee code
 $stmt = $connection->prepare("SELECT id, employee_code, start_date, end_date, reason, status, submitted_date FROM requests WHERE employee_code = ?");
