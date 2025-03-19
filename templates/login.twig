@@ -1,0 +1,36 @@
+{# templates/login.twig #}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Log-in/Register - Vacation Portal</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="main-title">
+    <h1>Welcome to Vacation Portal</h1>
+    <h2>Log-In</h2>
+</div>
+
+<div>
+    <form action="login.php" method="POST">
+        <label>Email:</label>
+        <input type="email" name="email" required>
+
+        <label>Password:</label>
+        <input type="password" name="password" required>
+
+        <button type="submit">Log-in</button>
+    </form>
+</div>
+
+<br>
+
+<div class="messages">
+    {{ messages|raw }}
+</div>
+
+</body>
+</html>
