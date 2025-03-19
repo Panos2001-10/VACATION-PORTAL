@@ -1,6 +1,9 @@
 <?php
+
+namespace models;
+
+use App\classes\user;
 use PHPUnit\Framework\TestCase;
-use App\user;
 
 class UserTest extends TestCase
 {
