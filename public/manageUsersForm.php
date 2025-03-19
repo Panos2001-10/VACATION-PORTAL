@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../src/bootstrap.php';
 
 use App\classes\database;
+use App\classes\messageHandler;
 
 $database   = new database();
 $connection = $database->getConnection();
@@ -60,7 +61,7 @@ $result = $stmt->get_result();
 <br>
 <!-- Display any success/error messages -->
 <div class="messages">
-    <?php displayMessages(); ?>
+    <?php messageHandler::displayMessages(); ?>
 </div>
 
 <br>
