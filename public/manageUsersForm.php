@@ -1,13 +1,8 @@
 <?php
-session_start();
 
-require_once __DIR__ . '/../src/config.php';
-require_once __DIR__ . '/../src/classes/database.php';
-require_once __DIR__ . '/../src/utils.php';
-require_once __DIR__ . '/../src/messageHandler.php';
-require_once __DIR__ . '/../src/authCheck.php';
+require_once __DIR__ . '/../src/bootstrap.php';
 
-use App\database;
+use App\classes\database;
 
 $database   = new database();
 $connection = $database->getConnection();
