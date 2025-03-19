@@ -10,7 +10,7 @@ $connection = $database->getConnection();
 
 $managerCode = $_SESSION['user_employee_code'];
 
-$stmt = $connection->prepare("SELECT employee_code, full_name, email FROM users WHERE role = 'employee' AND manager_code = ?");
+$stmt = $database->getConnection()->prepare("SELECT employee_code, full_name, email FROM users WHERE role = 'employee' AND manager_code = ?");
 $stmt->bind_param("i", $managerCode);
 $stmt->execute();
 $result = $stmt->get_result();
