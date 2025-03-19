@@ -1,10 +1,12 @@
 <?php
 // Function to generate the footer and prevent XSS (Cross-Site Scripting)
 // It returns the logged-in user's full name and role, if available, or defaults to "Guest" if not logged in.
-function getLoggedInUserInfo() {
+use App\classes\database;
+
+function getLoggedInUserInfo(): string {
     // Check if session variables for full name and role are set (i.e., the user is logged in)
     if (!isset($_SESSION['user_full_name']) || !isset($_SESSION['user_role'])) {
-        return "Guest (No role assigned)";  // Return default message if not logged in
+        return "Guest (No role assigned)";
     }
 
     // Escape output to prevent XSS (i.e., potential malicious content in user input)
@@ -17,7 +19,7 @@ function getLoggedInUserInfo() {
 
 // Function to calculate total weekdays (Monday to Friday) between two dates
 // It returns the number of weekdays between the given start and end date
-function countWeekdays($start_date, $end_date) {
+function countWeekdays($start_date, $end_date): int {
     // Convert the start and end date strings to DateTime objects
     $start = new DateTime($start_date);
     $end = new DateTime($end_date);
@@ -45,7 +47,7 @@ function countWeekdays($start_date, $end_date) {
 
 // Function to delete expired vacation requests from the database
 // It deletes requests that are rejected for more than 2 days and approved requests that are past the end date
-function deleteExpiredRequests($connection) {
+function deleteExpiredRequests($connection): void {
     // Delete rejected vacation requests that were submitted more than 2 days ago
     $stmt = $connection->prepare("DELETE FROM requests WHERE status = 'rejected' AND submitted_date <= NOW() - INTERVAL 2 DAY");
     $stmt->execute();  // Execute the delete statement
@@ -57,10 +59,10 @@ function deleteExpiredRequests($connection) {
 
 // Function to check if the logged-in manager can edit the details of a specific employee
 // It compares the manager's code in the session with the employee's manager code from the database
-function checkManagerAuthorization($connection, $employeeCode) {
+function checkManagerAuthorization(database $connection, int $employeeCode): bool | array {
     // Ensure the session is started and the manager code is set in the session
     if (!isset($_SESSION['user_manager_code'])) {
-        return ['status' => false, 'message' => 'Manager is not logged in.'];  // Return error if no manager code in session
+        return ['status' => false, 'message' => 'Manager is not logged in.'];
     }
 
     // Prepare a statement to fetch the manager code associated with the given employee code from the database
@@ -86,4 +88,3 @@ function checkManagerAuthorization($connection, $employeeCode) {
 
     return true;  // Return true if the manager is authorized to edit the employee's details
 }
-?>

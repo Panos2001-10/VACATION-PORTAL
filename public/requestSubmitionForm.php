@@ -1,9 +1,10 @@
 <?php
-// Include necessary files for database configuration, utility functions, authentication check, and message handling
-include __DIR__ . '/../src/config.php';  // database connection
-include __DIR__ . '/../src/utils.php';   // Utility functions (e.g., for calculating weekdays)
-include __DIR__ . '/../middleware/authCheck.php';  // To ensure the user is authenticated
-include __DIR__ . '/../middleware/messageHandler.php';  // For handling and displaying messages
+require_once __DIR__ . '/../src/bootstrap.php';
+
+use App\classes\messageHandler;
+use App\classes\database;
+
+$database = new database();
 ?>
 
 <!DOCTYPE html>
@@ -57,7 +58,7 @@ include __DIR__ . '/../middleware/messageHandler.php';  // For handling and disp
     <br>
     <!-- Display messages (like success or error messages) -->
     <div class="messages">
-        <?php displayMessages(); ?>  <!-- Function to display messages to the user -->
+        <?php messageHandler::displayMessages(); ?>  <!-- Function to display messages to the user -->
     </div>
 
     <br>

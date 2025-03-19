@@ -1,15 +1,15 @@
 <?php
-// Include necessary files: configuration, utility functions, message handling, and authentication check
-include __DIR__ . '/../src/config.php';  // database connection
-include __DIR__ . '/../src/utils.php';   // Utility functions (e.g., countWeekdays)
-include __DIR__ . '/../middleware/messageHandler.php';  // For handling and displaying messages
-include __DIR__ . '/../middleware/authCheck.php';  // To ensure the user is authenticated
+require_once __DIR__ . '/../src/bootstrap.php';
 
-// Fetch vacation requests for the logged-in user based on their employee code
-$stmt = $connection->prepare("SELECT id, employee_code, start_date, end_date, reason, status, submitted_date FROM requests WHERE employee_code = ?");
-$stmt->bind_param("i", $_SESSION['user_employee_code']);  // Bind the employee code from the session
-$stmt->execute();  // Execute the query to get vacation requests
-$result = $stmt->get_result();  // Store the result to fetch later
+use App\classes\messageHandler;
+use App\classes\database;
+
+$database = new database();
+
+$stmt = $database->getConnection()->prepare("SELECT id, employee_code, start_date, end_date, reason, status, submitted_date FROM requests WHERE employee_code = ?");
+$stmt->bind_param("i", $_SESSION['user_employee_code']);
+$stmt->execute();
+$result = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>
@@ -81,7 +81,7 @@ $result = $stmt->get_result();  // Store the result to fetch later
     <br>
     <!-- Display messages (if any) like success or error -->
     <div class="messages">
-        <?php displayMessages(); ?>
+        <?php messageHandler::displayMessages(); ?>
     </div>
     
     <br>
