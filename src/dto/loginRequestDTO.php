@@ -3,11 +3,12 @@
 namespace App\dto;
 
 use App\classes\valueObjects\email;
+use App\classes\valueObjects\password;
 
 class loginRequestDTO
 {
     private email $email;
-    private string $password;
+    private password $password;
 
     /**
      * Constructor to initialize email and password fields.
@@ -15,16 +16,16 @@ class loginRequestDTO
     public function __construct(string $email, string $password)
     {
         $this->email = new email($email);
-        $this->password = $password;
+        $this->password = new password($password);
     }
 
     public function getEmail(): string
     {
-        return $this->email->getEmail();
+        return $this->email->getValue();
     }
 
     public function getPassword(): string
     {
-        return $this->password;
+        return $this->password->getValue();
     }
 }
