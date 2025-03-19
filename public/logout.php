@@ -1,13 +1,6 @@
 <?php
-// Start a new session or resume the existing session
-session_start();
-
-// Destroy all session data, effectively logging the user out
+require_once __DIR__ . '/../src/bootstrap.php';
 session_destroy();
-
-// Redirect the user to the 'index.php' page (or any page you want after logout)
 header("Location: index.php");
-
-// Terminate the script to ensure no further code is executed after the redirect
 exit();
-?>
+

@@ -1,9 +1,7 @@
 <?php
-// Include necessary files for database connection, utility functions, and authentication
-include __DIR__ . '/../src/config.php'; // database connection settings
-include __DIR__ . '/../src/utils.php'; // Utility functions
-include __DIR__ . '/../middleware/messageHandler.php'; // Handles success/error messages
-include __DIR__ . '/../middleware/authCheck.php'; // Ensures the user is authenticated
+require_once __DIR__ . '/../src/bootstrap.php';
+
+use App\classes\messageHandler;
 ?>
 
 <!DOCTYPE html>
@@ -68,7 +66,7 @@ include __DIR__ . '/../middleware/authCheck.php'; // Ensures the user is authent
     <br>
     <!-- Display Messages (Success/Error Notifications) -->
     <div class="messages">
-        <?php displayMessages(); ?>
+        <?php messageHandler::displayMessages(); ?>
     </div>
 
     <br>

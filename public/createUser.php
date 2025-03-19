@@ -1,17 +1,19 @@
 <?php
-// Include necessary files for database connection, authentication, and message handling
-include __DIR__ . '/../src/config.php'; // database connection settings
-include __DIR__ . '/../middleware/messageHandler.php'; // Handles success/error messages
-include __DIR__ . '/../middleware/authCheck.php'; // Ensures the user is authenticated
+require_once __DIR__ . '/../src/bootstrap.php';
+
+use App\classes\messageHandler;
+use App\classes\database;
+
+$database = new database();
 
 // Check if the request method is POST (form submission)
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get user input from the form
-    $fullname = $_POST['fullname']; // user's full name
-    $email = $_POST['email']; // Email address
-    $employeeCode = $_POST['employee_code']; // Employee code (must be 7 digits)
-    $password = $_POST['password']; // user's password
-    $role = $_POST['role']; // Role (manager or employee)
+    $fullname = $_POST['fullname'];
+    $email = $_POST['email'];
+    $employeeCode = $_POST['employee_code'];
+    $password = $_POST['password'];
+    $role = $_POST['role'];
 
     /** 
      * === FULL NAME VALIDATION ===
@@ -20,15 +22,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
      * - Enforce length between 3 and 100 characters.
      */
     if (empty($fullname)) {
-        addMessage("error", "Full Name is required.");
+        messageHandler::addMessage("error", "Full Name is required.");
         header("Location: createUserForm.php");
         exit();
     } elseif (!preg_match("/^[a-zA-Z\s\-']+$/", $fullname)) {
-        addMessage("error", "Full Name must only contain letters, spaces, hyphens, and apostrophes.");
+        messageHandler::addMessage("error", "Full Name must only contain letters, spaces, hyphens, and apostrophes.");
         header("Location: createUserForm.php");
         exit();
     } elseif (strlen($fullname) < 3 || strlen($fullname) > 100) {
-        addMessage("error", "Full Name must be between 3 and 100 characters long.");
+        messageHandler::addMessage("error", "Full Name must be between 3 and 100 characters long.");
         header("Location: createUserForm.php");
         exit();
     }
@@ -38,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
      * - Ensure the employee code consists of exactly 7 digits.
      */
     if (!preg_match("/^[0-9]{7}$/", $employeeCode)) {
-        addMessage("error", "Invalid Employee Code. It must be a 7-digit number.");
+        messageHandler::addMessage("error", "Invalid Employee Code. It must be a 7-digit number.");
         header("Location: createUserForm.php");
         exit();
     }
@@ -47,18 +49,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
      * === CHECK IF EMPLOYEE CODE ALREADY EXISTS ===
      * - Prevent duplicate employee codes in the database.
      */
-    $stmt = $connection->prepare("SELECT employee_code FROM users WHERE employee_code = ?");
+    $stmt = $database->getConnection()->prepare("SELECT employee_code FROM users WHERE employee_code = ?");
     $stmt->bind_param("i", $employeeCode);
     $stmt->execute();
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        addMessage("error", "The employee code you have given has already been used. Please try another employee code!");
+        messageHandler::addMessage("error", "The employee code you have given has already been used. Please try another employee code!");
         header("Location: createUserForm.php");
         exit();
     }
 
-    // Close the statement
     $stmt->close();
 
     /** 
@@ -79,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (isset($_SESSION['user_manager_code'])) {
             $managerCode = $_SESSION['user_manager_code'];
         } else {
-            addMessage("error", "Manager code is missing. Please ensure you are logged in as an employee.");
+            messageHandler::addMessage("error", "Manager code is missing. Please ensure you are logged in as an employee.");
             header("Location: createUserForm.php");
             exit();
         }
@@ -89,20 +90,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
      * === INSERT NEW USER INTO DATABASE ===
      * - Store the new user's details, including the assigned manager code.
      */
-    $stmt = $connection->prepare("INSERT INTO users (manager_code, employee_code, full_name, email, password, role) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt = $database->getConnection()->prepare("INSERT INTO users (manager_code, employee_code, full_name, email, password, role) VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("iissss", $managerCode, $employeeCode, $fullname, $email, $hashed_password, $role);
 
     if ($stmt->execute()) {
-        addMessage("success", "New user created successfully!");
-        header("Location: manageUsersForm.php"); // Redirect to user management page
+        messageHandler::addMessage("success", "New user created successfully!");
+        header("Location: manageUsersForm.php");
         exit();
     } else {
-        addMessage("error", "An error has occurred during user creation. Please try again.");
-        header("Location: previousPage.php"); // Redirect back to the previous page
+        messageHandler::addMessage("error", "An error has occurred during user creation. Please try again.");
+        header("Location: previousPage.php");
         exit();
     }
 
-    // Close the statement
     $stmt->close();
 }
-?>

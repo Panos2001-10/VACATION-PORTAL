@@ -1,37 +1,33 @@
 <?php
-// Include necessary files for database connection, utility functions, and authentication
-include __DIR__ . '/../src/config.php'; // database connection settings
-include __DIR__ . '/../src/utils.php'; // Utility functions
-include __DIR__ . '/../middleware/messageHandler.php'; // Handles success/error messages
-include __DIR__ . '/../middleware/authCheck.php'; // Ensures user is authenticated before accessing this page
+require_once __DIR__ . '/../src/bootstrap.php';
 
-// Check if an employee ID is provided in the URL
+use App\classes\messageHandler;
+use App\classes\database;
+
+$database = new database();
+
 if (!isset($_GET['id'])) {
-    echo "Invalid request."; // Display error if no ID is provided
-    exit(); // Stop script execution
+    echo "Invalid request.";
+    exit();
 }
 
-// Get the employee ID from the URL parameter
 $employeeCode = $_GET['id'];
 
-// Ensure the logged-in manager has permission to edit this employee
-if (!checkManagerAuthorization($connection, $employeeCode)) {
-    addMessage("error", "You are not authorized to edit this employee's details.");
-    header("Location: manageUsersForm.php"); // Redirect back to user management page
-    exit(); // Stop script execution
+if (!checkManagerAuthorization($database->getConnection(), $employeeCode)) {
+    messageHandler::addMessage("error", "You are not authorized to edit this employee's details.");
+    header("Location: manageUsersForm.php");
+    exit();
 }
 
-// Prepare SQL query to fetch employee details based on the provided ID
-$stmt = $connection->prepare("SELECT employee_code, full_name, email, password FROM users WHERE employee_code = ?");
-$stmt->bind_param("i", $employeeCode); // Bind employee ID as an integer
-$stmt->execute(); // Execute the query
-$result = $stmt->get_result(); // Get query result
-$employee = $result->fetch_assoc(); // Fetch employee details as an associative array
+$stmt = $database->getConnection()->prepare("SELECT employee_code, full_name, email, password FROM users WHERE employee_code = ?");
+$stmt->bind_param("i", $employeeCode);
+$stmt->execute();
+$result = $stmt->get_result();
+$employee = $result->fetch_assoc();
 
-// Check if employee exists in the database
 if (!$employee) {
-    echo "Employee not found."; // Show error message if no record found
-    exit(); // Stop script execution
+    echo "Employee not found.";
+    exit();
 }
 ?>
 
@@ -87,7 +83,7 @@ if (!$employee) {
     <br>
     <!-- Display success/error messages (if any) -->
     <div class="messages">
-        <?php displayMessages(); ?>
+        <?php messageHandler::displayMessages(); ?>
     </div>
 
     <br>

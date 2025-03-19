@@ -1,25 +1,22 @@
 <?php
-// Include necessary files for database connection, authentication, and message handling
-include __DIR__ . '/../src/config.php'; // database connection settings
-include __DIR__ . '/../src/utils.php'; // Utility functions (e.g., countWeekdays)
-include __DIR__ . '/../middleware/messageHandler.php'; // Handles success/error messages
-include __DIR__ . '/../middleware/authCheck.php'; // Ensures the user is authenticated
+require_once __DIR__ . '/../src/bootstrap.php';
 
-// Retrieve the employee_code from the URL (GET request)
+use App\classes\messageHandler;
+use App\classes\database;
+
+$database = new database();
 $employee_code = $_GET['employee_code'] ?? null;
 
 // Validate employee_code (ensure it's present)
 if (!$employee_code) {
-    addMessage("error", "Invalid employee.");
-    header("Location: manageUsersForm.php"); // Redirect back to the employee management page
+    messageHandler::addMessage("error", "Invalid employee.");
+    header("Location: manageUsersForm.php");
     exit();
 }
 
-// Get the manager_code from the session (logged-in manager's employee code)
 $manager_code = $_SESSION['user_employee_code'];
 
-// Query to fetch the full name of the employee only if they belong to the logged-in manager
-$stmt = $connection->prepare("SELECT full_name FROM users WHERE employee_code = ? AND manager_code = ?");
+$stmt = $database->getConnection()->prepare("SELECT full_name FROM users WHERE employee_code = ? AND manager_code = ?");
 $stmt->bind_param("ii", $employee_code, $manager_code);
 $stmt->execute();
 $employee_result = $stmt->get_result();
@@ -27,15 +24,14 @@ $employee_result = $stmt->get_result();
 // Check if the employee belongs to the logged-in manager
 if ($employee_result->num_rows === 0) {
     addMessage("error", "This employee does not belong to your team.");
-    header("Location: manageUsersForm.php"); // Redirect to employee management page
+    header("Location: manageUsersForm.php");
     exit();
 }
 
 $employee = $employee_result->fetch_assoc();
 $employee_full_name = $employee['full_name'] ?? 'Unknown Employee';
 
-// Query to fetch vacation requests for this employee (ensuring they are managed by the logged-in manager)
-$stmt = $connection->prepare("
+$stmt = $database->getConnection()->prepare("
     SELECT r.id, r.start_date, r.end_date, r.reason, r.status
     FROM requests r
     JOIN users u ON r.employee_code = u.employee_code
@@ -109,7 +105,7 @@ $result = $stmt->get_result();
     <br>
     <!-- Display success/error messages -->
     <div class="messages">
-        <?php displayMessages(); ?>
+        <?php messageHandler::displayMessages(); ?>
     </div>
     
     <br>
