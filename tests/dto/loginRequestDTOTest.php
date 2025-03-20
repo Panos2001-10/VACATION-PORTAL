@@ -11,8 +11,8 @@ class loginRequestDTOTest extends TestCase
     public function testValidLoginRequest()
     {
         $loginRequest = new LoginRequestDTO("user@example.com", "secure123");
-        $this->assertEquals("user@example.com", $loginRequest->getEmail()->getValue());
-        $this->assertEquals("secure123", $loginRequest->getPassword()->getValue());
+        $this->assertEquals("user@example.com", $loginRequest->getEmail());
+        $this->assertEquals("secure123", $loginRequest->getPassword());
     }
 
     public function testInvalidEmailThrowsException()
