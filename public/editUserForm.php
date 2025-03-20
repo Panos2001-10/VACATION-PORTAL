@@ -13,7 +13,7 @@ if (!isset($_GET['id'])) {
 
 $employeeCode = $_GET['id'];
 
-if (!checkManagerAuthorization($database->getConnection(), $employeeCode)) {
+if (!checkManagerAuthorization($database, $employeeCode)) {
     messageHandler::addMessage("error", "You are not authorized to edit this employee's details.");
     header("Location: manageUsersForm.php");
     exit();

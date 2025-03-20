@@ -59,12 +59,13 @@ function deleteExpiredRequests($connection): void {
 
 // Function to check if the logged-in manager can edit the details of a specific employee
 // It compares the manager's code in the session with the employee's manager code from the database
-function checkManagerAuthorization(database $connection, int $employeeCode): bool | array {
+function checkManagerAuthorization(database $database, int $employeeCode): bool | array {
     // Ensure the session is started and the manager code is set in the session
     if (!isset($_SESSION['user_manager_code'])) {
         return ['status' => false, 'message' => 'Manager is not logged in.'];
     }
 
+    $connection = $database->getConnection();
     // Prepare a statement to fetch the manager code associated with the given employee code from the database
     $stmt = $connection->prepare("SELECT manager_code FROM users WHERE employee_code = ?");
     $stmt->bind_param("i", $employeeCode);  // Bind the employee code parameter
