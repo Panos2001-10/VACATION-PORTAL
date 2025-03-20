@@ -8,3 +8,4 @@
 /dataSources.local.xml
 /vendor/
 .idea
+.phpunit.result.cache
