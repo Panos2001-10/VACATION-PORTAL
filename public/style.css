@@ -2,170 +2,170 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;  /* Ensures padding and borders don't affect element size */
-    font-family: Arial, sans-serif;  /* Set a default font */
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
 /* ======= General Layout ======= */
 body {
-    background-color: #f4f4f4;  /* Light gray background color */
-    color: #333;  /* Dark text color for better readability */
-    line-height: 1.6;  /* Makes the text more readable with a larger line height */
-    padding: 20px;  /* Adds padding around the body */
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
 }
 
 /* ======= Main ======= */
 body .main-title {
-    text-align: center;  /* Center-align the title */
-    padding: 20px;  /* Adds padding around the title */
+    text-align: center;
+    padding: 20px;
 }
 
 /* ======= Typography ======= */
 h1 {
-    color: #222;  /* Darker color for main headers */
-    margin-bottom: 10px;  /* Adds space below the header */
+    color: #222;
+    margin-bottom: 10px;
 }
 
 h2, h3 {
-    color: #222;  /* Ensures subheadings also have a dark color */
+    color: #222;
 }
 
 /* ======= Links ======= */
 a {
-    text-decoration: none;  /* Remove underline from links by default */
-    color: #007BFF;  /* Blue color for links */
+    text-decoration: none;
+    color: #007BFF;
 }
 
 a:hover {
-    text-decoration: underline;  /* Add underline on hover for links */
+    text-decoration: underline;
 }
 
 /* ======= Buttons ======= */
 button, .btn {
-    display: inline-block;  /* Display buttons inline */
-    padding: 10px 15px;  /* Adds padding inside the buttons */
-    background: #007BFF;  /* Blue background for buttons */
-    color: #fff;  /* White text color */
-    border: none;  /* Removes default button borders */
-    border-radius: 5px;  /* Rounded corners for buttons */
-    cursor: pointer;  /* Pointer cursor to indicate the button is clickable */
+    display: inline-block;
+    padding: 10px 15px;
+    background: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 button:hover, .btn:hover {
-    background: #0056b3;  /* Darker blue background on hover */
+    background: #0056b3;
 }
 
 /* ======= Forms ======= */
 form {
-    background: #fff;  /* White background for the form */
-    padding: 20px;  /* Adds padding inside the form */
-    border-radius: 5px;  /* Rounded corners for the form */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  /* Adds subtle shadow for depth */
-    max-width: 400px;  /* Limits the form's width */
-    margin: auto;  /* Centers the form horizontally */
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: auto;
 }
 
 input, select {
-    width: 100%;  /* Make form inputs and select elements full width */
-    padding: 8px;  /* Adds padding inside input fields */
-    margin: 8px 0;  /* Adds space between form elements */
-    border: 1px solid #ccc;  /* Light gray border for input fields */
-    border-radius: 4px;  /* Slightly rounded corners for inputs */
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 label {
-    font-weight: bold;  /* Make labels bold for better readability */
+    font-weight: bold;
 }
 
 /* ======= Role Selection (Radio Buttons) ======= */
 .role-selection {
-    display: flex;  /* Use flexbox for horizontal layout */
-    align-items: center;  /* Vertically align items */
-    gap: 20px;  /* Space between radio buttons */
-    padding: 10px 0;  /* Adds vertical padding */
-    margin-bottom: 20px;  /* Space below the role selection */
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 0;
+    margin-bottom: 20px;
 }
 
 .role-selection input[type="radio"] {
-    width: 18px;  /* Set the size of the radio buttons */
+    width: 18px;
     height: 18px;
-    margin: 0;  /* Removes default margin */
-    cursor: pointer;  /* Pointer cursor to indicate interactivity */
+    margin: 0;
+    cursor: pointer;
 }
 
 .role-selection label {
-    font-size: 16px;  /* Sets the font size for labels */
-    cursor: pointer;  /* Pointer cursor on hover */
-    transition: color 0.3s ease;  /* Smooth transition for color change */
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.3s ease;
 }
 
 .role-selection label:hover {
-    color: #007BFF;  /* Change label color on hover */
+    color: #007BFF;
 }
 
 /* ======= Textarea ======= */
 textarea {
-    width: 100%;  /* Full width of its container */
-    height: 150px;  /* Set default height */
-    padding: 10px;  /* Adds padding inside the textarea */
-    font-size: 14px;  /* Sets text size */
-    border-radius: 5px;  /* Rounded corners */
-    border: 1px solid #ccc;  /* Light gray border */
-    box-sizing: border-box;  /* Ensures padding doesn't affect width */
-    resize: none;  /* Disable resizing of the textarea */
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    resize: none;
 }
 
 textarea:focus {
-    border-color: #007BFF;  /* Change border color when focused */
-    outline: none;  /* Remove default outline on focus */
+    border-color: #007BFF;
+    outline: none;
 }
 
 /* ======= Tables ======= */
 table {
-    width: 100%;  /* Table takes full width of its container */
-    border-collapse: collapse;  /* Removes space between table cells */
-    margin: 20px 0;  /* Adds vertical margin around the table */
-    background: #fff;  /* White background for the table */
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background: #fff;
 }
 
 th, td {
-    padding: 10px;  /* Adds padding inside table cells */
-    border: 1px solid #ddd;  /* Light gray border for table cells */
-    text-align: left;  /* Left-align text inside table cells */
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
 }
 
 th {
-    background: #007BFF;  /* Blue background for table headers */
-    color: #fff;  /* White text for headers */
+    background: #007BFF;
+    color: #fff;
 }
 
 /* ======= Messages & Alerts ======= */
 .messages {
-    text-align: center;  /* Center-align messages */
+    text-align: center;
 }
 
 .messages .success {
-    padding: 20px;  /* Adds padding inside the success message */
-    margin-top: 20px;  /* Adds space above */
-    margin-bottom: 20px;  /* Adds space below */
-    background: #d4edda;  /* Light green background for success */
-    color: #155724;  /* Dark green text color */
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background: #d4edda;
+    color: #155724;
 }
 
 .messages .error {
     padding: 20px;
     margin-top: 20px;
     margin-bottom: 20px;
-    background: #f8d7da;  /* Light red background for error */
-    color: #721c24;  /* Dark red text color */
+    background: #f8d7da;
+    color: #721c24;
 }
 
 /* ======= Footer ======= */
 footer {
-    text-align: center;  /* Center-align footer text */
-    padding: 20px;  /* Adds padding inside the footer */
-    margin-top: 20px;  /* Adds space above the footer */
-    background: #ddd;  /* Light gray background for the footer */
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+    background: #ddd;
 }
 
 /* ======= Media Queries ======= */
@@ -173,68 +173,68 @@ footer {
 /* Mobile devices (small screens) */
 @media (max-width: 600px) {
     body {
-        padding: 10px;  /* Reduced padding on small screens */
+        padding: 10px;
     }
 
     form {
-        width: 100%;  /* Full-width form on mobile */
-        padding: 15px;  /* Reduced padding inside form */
-        margin: 0;  /* Remove margin around the form */
+        width: 100%;
+        padding: 15px;
+        margin: 0;
     }
 
     .role-selection {
-        flex-direction: column;  /* Stack radio buttons vertically on small screens */
-        gap: 10px;  /* Reduce gap between radio buttons */
+        flex-direction: column;
+        gap: 10px;
     }
 
     .role-selection input[type="radio"] {
-        width: 20px;  /* Slightly larger radio buttons */
+        width: 20px;
         height: 20px;
     }
 
     .role-selection label {
-        font-size: 14px;  /* Smaller font size for labels */
+        font-size: 14px;
     }
 
     textarea {
-        height: 120px;  /* Smaller height for textarea on mobile */
+        height: 120px;
     }
 
     table {
-        font-size: 14px;  /* Smaller font size for tables */
+        font-size: 14px;
     }
 
     th, td {
-        padding: 8px;  /* Reduced padding inside table cells */
+        padding: 8px;
     }
 }
 
 /* Tablet devices (medium screens) */
 @media (max-width: 768px) {
     form {
-        width: 90%;  /* Form width adjusted for tablet screens */
+        width: 90%;
     }
 
     .role-selection {
-        gap: 15px;  /* Slightly smaller gap between radio buttons */
+        gap: 15px;
     }
 
     textarea {
-        height: 130px;  /* Adjusted height for textarea on tablet */
+        height: 130px;
     }
 }
 
 /* Larger screens (desktops and above) */
 @media (min-width: 1024px) {
     form {
-        max-width: 500px;  /* Increase form width on larger screens */
+        max-width: 500px;
     }
 
     textarea {
-        height: 180px;  /* Larger height for textarea on larger screens */
+        height: 180px;
     }
 
     .role-selection {
-        gap: 30px;  /* Increased gap between radio buttons on large screens */
+        gap: 30px;
     }
 }

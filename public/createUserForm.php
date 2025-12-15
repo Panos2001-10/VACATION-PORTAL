@@ -16,7 +16,6 @@ include __DIR__ . '/../middleware/authCheck.php'; // Ensures the user is authent
     </style>
 </head>
 <body>
-    <!-- Page Title -->
     <div class="main-title">
         <h1>Vacation Portal</h1>
         <h2>Create New User</h2>
@@ -24,41 +23,33 @@ include __DIR__ . '/../middleware/authCheck.php'; // Ensures the user is authent
     
     <br>
     <div>
-        <!-- User Creation Form -->
         <form action="createUser.php" method="POST"> 
-            <!-- Full Name Input Field -->
             <label>Full Name:</label>
-            <input type="text" name="fullname" required> <!-- Required field to prevent empty submission -->
+            <input type="text" name="fullname" required>
 
-            <!-- Email Input Field -->
             <label>Email:</label>
-            <input type="email" name="email" required> <!-- Uses HTML5 validation for email format -->
+            <input type="email" name="email" required>
             
-            <!-- Employee Code Input Field (7-digit numeric validation) -->
             <label for="employee_code">Employee Code (7 digits):</label>
-            <input type="text" name="employee_code" pattern="\d{7}" required> <!-- Enforces exactly 7-digit numbers -->
+            <input type="text" name="employee_code" pattern="\d{7}" required>
             <br>
 
-            <!-- Password Input Field -->
             <label>Password:</label>
-            <input type="password" name="password" required> <!-- Required password field -->
+            <input type="password" name="password" required>
 
             <br>
-            <!-- Role Selection (Manager or Employee) -->
             <label>Role:</label>
             <div class="role-selection">
-                <input type="radio" id="manager" name="role" value="manager" required> <!-- Manager option -->
+                <input type="radio" id="manager" name="role" value="manager" required>
                 <label for="manager">Manager</label>
 
-                <input type="radio" id="employee" name="role" value="employee" required> <!-- Employee option -->
+                <input type="radio" id="employee" name="role" value="employee" required>
                 <label for="employee">Employee</label>
             </div>
 
-            <!-- Submit Button -->
             <button type="submit">Create New User</button>
 
             <br>
-            <!-- Back to Employees List Link -->
             <div style="text-align: right; margin-top: 10px;">
                 <a href="manageUsersForm.php">Back to Employees</a>
             </div>
@@ -66,17 +57,15 @@ include __DIR__ . '/../middleware/authCheck.php'; // Ensures the user is authent
     </div>
 
     <br>
-    <!-- Display Messages (Success/Error Notifications) -->
     <div class="messages">
         <?php displayMessages(); ?>
     </div>
 
     <br>
-    <!-- Footer Section -->
     <footer>
         <div class="logout">
-            <p><?php echo getLoggedInUserInfo(); // Display logged-in user info ?></p>
-            <a href="logout.php">Log-Out</a> <!-- Logout link -->
+            <p><?php echo getLoggedInUserInfo(); ?></p>
+            <a href="logout.php">Log-Out</a>
         </div>
     </footer>
 </body>

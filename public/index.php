@@ -18,31 +18,25 @@ include __DIR__ . '/../middleware/authCheck.php'; // Ensures authentication wher
 </head>
 <body>
 
-    <!-- Page Title -->
     <div class="main-title">
         <h1>Welcome to Vacation Portal</h1>
         <h2>Log-In</h2>
     </div>
     
-    <!-- Login Form -->
     <div>
         <form action="login.php" method="POST">
-            <!-- Email Input -->
             <label>Email:</label>
             <input type="email" name="email" required>
 
-            <!-- Password Input -->
             <label>Password:</label>
             <input type="password" name="password" required>
 
-            <!-- Submit Button -->
             <button type="submit">Log-in</button>
         </form>
     </div>
 
     <br>
 
-    <!-- Display Success/Error Messages -->
     <div class="messages">
         <?php displayMessages(); ?>
     </div>
