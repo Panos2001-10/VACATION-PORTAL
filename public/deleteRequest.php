@@ -3,7 +3,6 @@ include __DIR__ . '/../src/config.php';
 include __DIR__ . '/../middleware/messageHandler.php';
 include __DIR__ . '/../middleware/authCheck.php';
 
-// Ensure a request ID is provided
 if (!isset($_GET['id']) || !ctype_digit($_GET['id'])) {
     addMessage("error", "Invalid request ID.");
     header("Location: vacationRequestsForm.php");
